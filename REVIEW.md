@@ -52,3 +52,7 @@ profile vectors passed
 
 ## BLOCKED
 - None.
+
+## Integrator addendum (Fable, at gate)
+- Ponytail: single-file validator, stdlib + base verifier only — lean, keep.
+- Fix at gate: requirements pinned a moving branch (`dev.zip`) → pinned to tag `v1.0.5`; vectors revalidated green ("profile vectors passed") in a clean 3.12 container.
