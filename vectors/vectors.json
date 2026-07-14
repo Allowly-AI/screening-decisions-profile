@@ -84,16 +84,16 @@
     "engine_version": "funnelops-test",
     "policy_eval": {
      "matched_condition": {
-      "field": "work_authorization",
+      "field": "tier",
       "op": "eq",
-      "value": true
+      "value": "deny"
      },
-     "field_value": false
+     "field_value": "deny"
     },
     "signature": {
      "alg": "Ed25519",
      "key_id": "test-key-v03",
-     "value": "SussJuAjcLQLeBYBIapG31LB3JLRe0oip964K0-RpKrkC3TxNJVqixLOi7tnlaConWCqqIYlf9h93HaDdtTrBg"
+     "value": "0YjuJUspy6GNPDUJIzuLdN5ZkhbVM4r1COgXaUrTKyEN3BQDTv0ViRJw9oERINowX5wGNZFOQwKor7cY2HbBBA"
     }
    }
   },
@@ -681,16 +681,16 @@
     "authorization_id": "auth_policy_v1",
     "policy_eval": {
      "matched_condition": {
-      "field": "work_authorization",
+      "field": "tier",
       "op": "eq",
-      "value": true
+      "value": "deny"
      },
-     "field_value": false
+     "field_value": "deny"
     },
     "signature": {
      "alg": "Ed25519",
      "key_id": "test-key-v03",
-     "value": "loZwrq06ZQvpx4sNwSchCpFLL1JezY2GOE0KVqPW1Elbk7edqFaZXaIUAEfuBy57KpPRHoZgOFCnzMHZ7WvjDQ"
+     "value": "xS_sVGT7N9UAHEe_4jtrKxyuy5CVYNw8aLoX2rBIcDVsBAsuGjTPEnXTP7jCbRUsKm8bpB-okOdG_g3r7PWWDQ"
     },
     "engine_version": "profile-vector-0.3"
    }
