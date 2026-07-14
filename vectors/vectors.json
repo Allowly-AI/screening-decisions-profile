@@ -285,5 +285,181 @@
       }
     }
   ],
-  "invalid": []
+  "invalid": [
+    {
+      "name": "vocabulary_mispairing",
+      "reason": "vocabulary_mispairing",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_invalid_vocab",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T01:00:00Z",
+        "decision": "allow",
+        "reason": "letter_issued",
+        "user_id": "req_owner",
+        "agent_id": "screening_engine",
+        "action": "candidate.screen",
+        "resource": "candidate:cand_invalid_vocab",
+        "context": {
+          "subject": {"uuid": "cand_invalid_vocab", "payload_digest": "sha256:payload_invalid_vocab"},
+          "requisition_id": "req_test",
+          "criteria_passed": [],
+          "criteria_failed": []
+        },
+        "authorization_id": "auth_policy_v1",
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    },
+    {
+      "name": "missing_policy_eval_on_knockout",
+      "reason": "missing_policy_eval",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_invalid_missing_policy_eval",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T01:01:00Z",
+        "decision": "deny",
+        "reason": "knockout_failed",
+        "user_id": "req_owner",
+        "agent_id": "screening_engine",
+        "action": "candidate.screen",
+        "resource": "candidate:cand_invalid_policy_eval",
+        "context": {
+          "subject": {"uuid": "cand_invalid_policy_eval", "payload_digest": "sha256:payload_invalid_policy_eval"},
+          "requisition_id": "req_test",
+          "knockout_id": "ko_work_auth",
+          "citation": "Role requires authorization to work in the United States.",
+          "fields_supplied_by": {"customer": ["work_authorization"], "cv": []}
+        },
+        "authorization_id": "auth_policy_v1",
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    },
+    {
+      "name": "missing_replaces_receipt_on_review",
+      "reason": "missing_replaces_receipt",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_invalid_missing_replaces",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T01:02:00Z",
+        "decision": "allow",
+        "reason": "review_confirmed_fit",
+        "user_id": "reviewer_opaque",
+        "agent_id": "ops_reviewer",
+        "action": "candidate.review",
+        "resource": "candidate:cand_confirm",
+        "context": {
+          "subject": {"uuid": "cand_confirm", "payload_digest": "sha256:payload_confirm"},
+          "requisition_id": "req_test",
+          "review_basis": ["cr_experience"]
+        },
+        "authorization_id": "auth_policy_v1",
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    },
+    {
+      "name": "float_in_context",
+      "reason": "float_in_context",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_invalid_float",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T01:03:00Z",
+        "decision": "allow",
+        "reason": "criteria_met",
+        "user_id": "req_owner",
+        "agent_id": "screening_engine",
+        "action": "candidate.screen",
+        "resource": "candidate:cand_invalid_float",
+        "context": {
+          "subject": {"uuid": "cand_invalid_float", "payload_digest": "sha256:payload_invalid_float"},
+          "requisition_id": "req_test",
+          "criteria_passed": ["cr_score"],
+          "criteria_failed": [],
+          "score": 0.9
+        },
+        "authorization_id": "auth_policy_v1",
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    },
+    {
+      "name": "pii_in_context",
+      "reason": "pii_in_context",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_invalid_pii",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T01:04:00Z",
+        "decision": "allow",
+        "reason": "criteria_met",
+        "user_id": "req_owner",
+        "agent_id": "screening_engine",
+        "action": "candidate.screen",
+        "resource": "candidate:cand_invalid_pii",
+        "context": {
+          "subject": {"uuid": "cand_invalid_pii", "payload_digest": "sha256:payload_invalid_pii"},
+          "requisition_id": "req_test",
+          "criteria_passed": ["cr_experience"],
+          "criteria_failed": [],
+          "email": "candidate@example.test"
+        },
+        "authorization_id": "auth_policy_v1",
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    },
+    {
+      "name": "broken_replaces_chain",
+      "reason": "broken_replaces_chain",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_invalid_broken_chain",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T01:05:00Z",
+        "decision": "deny",
+        "reason": "review_insufficient_evidence",
+        "user_id": "reviewer_opaque",
+        "agent_id": "ops_reviewer",
+        "action": "candidate.review",
+        "resource": "candidate:cand_missing_target",
+        "context": {
+          "subject": {"uuid": "cand_missing_target", "payload_digest": "sha256:payload_missing_target"},
+          "requisition_id": "req_test",
+          "replaces_receipt": "rcp_missing_target",
+          "review_basis": ["cr_experience"]
+        },
+        "authorization_id": "auth_policy_v1",
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    },
+    {
+      "name": "provenance_gate_violation",
+      "reason": "provenance_gate_violation",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_invalid_provenance",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T01:06:00Z",
+        "decision": "deny",
+        "reason": "knockout_failed",
+        "user_id": "req_owner",
+        "agent_id": "screening_engine",
+        "action": "candidate.screen",
+        "resource": "candidate:cand_invalid_provenance",
+        "context": {
+          "subject": {"uuid": "cand_invalid_provenance", "payload_digest": "sha256:payload_invalid_provenance"},
+          "requisition_id": "req_test",
+          "knockout_id": "ko_work_auth",
+          "citation": "Role requires authorization to work in the United States.",
+          "fields_supplied_by": {"customer": [], "cv": ["work_authorization"]}
+        },
+        "authorization_id": "auth_policy_v1",
+        "policy_eval": {
+          "matched_condition": {"field": "work_authorization", "op": "eq", "value": true},
+          "field_value": false
+        },
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    }
+  ]
 }
