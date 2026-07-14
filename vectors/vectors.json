@@ -1,0 +1,289 @@
+{
+  "profile_version": "0.3.0",
+  "valid": [
+    {
+      "name": "candidate_screen_advance",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_valid_advance",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T00:00:00Z",
+        "decision": "allow",
+        "reason": "criteria_met",
+        "user_id": "req_owner",
+        "agent_id": "screening_engine",
+        "action": "candidate.screen",
+        "resource": "candidate:cand_advance",
+        "context": {
+          "subject": {"uuid": "cand_advance", "payload_digest": "sha256:payload_advance"},
+          "requisition_id": "req_test",
+          "criteria_passed": ["cr_experience"],
+          "criteria_failed": [],
+          "fields_supplied_by": {"customer": ["warehouse_years"], "cv": []}
+        },
+        "authorization_id": "auth_policy_v1",
+        "engine_version": "funnelops-test",
+        "policy_eval": {"matched_condition": null, "field_value": null},
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    },
+    {
+      "name": "candidate_screen_knockout",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_valid_knockout",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T00:01:00Z",
+        "decision": "deny",
+        "reason": "knockout_failed",
+        "user_id": "req_owner",
+        "agent_id": "screening_engine",
+        "action": "candidate.screen",
+        "resource": "candidate:cand_knockout",
+        "context": {
+          "subject": {"uuid": "cand_knockout", "payload_digest": "sha256:payload_knockout"},
+          "requisition_id": "req_test",
+          "knockout_id": "ko_work_auth",
+          "citation": "Role requires authorization to work in the United States.",
+          "fields_supplied_by": {"customer": ["work_authorization"], "cv": []}
+        },
+        "authorization_id": "auth_policy_v1",
+        "engine_version": "funnelops-test",
+        "policy_eval": {
+          "matched_condition": {"field": "work_authorization", "op": "eq", "value": true},
+          "field_value": false
+        },
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    },
+    {
+      "name": "candidate_screen_confirm",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_valid_confirm",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T00:02:00Z",
+        "decision": "confirm",
+        "reason": "confirm_threshold",
+        "user_id": "req_owner",
+        "agent_id": "screening_engine",
+        "action": "candidate.screen",
+        "resource": "candidate:cand_confirm",
+        "context": {
+          "subject": {"uuid": "cand_confirm", "payload_digest": "sha256:payload_confirm"},
+          "requisition_id": "req_test",
+          "criteria_passed": ["cr_seniority"],
+          "criteria_failed": ["cr_experience"],
+          "fields_supplied_by": {"customer": ["seniority_band"], "cv": []}
+        },
+        "authorization_id": "auth_policy_v1",
+        "engine_version": "funnelops-test",
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    },
+    {
+      "name": "candidate_screen_escalate_criteria",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_valid_escalate_criteria",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T00:03:00Z",
+        "decision": "escalate",
+        "reason": "criteria_below_confirm",
+        "user_id": "req_owner",
+        "agent_id": "screening_engine",
+        "action": "candidate.screen",
+        "resource": "candidate:cand_escalate_criteria",
+        "context": {
+          "subject": {"uuid": "cand_escalate_criteria", "payload_digest": "sha256:payload_escalate_criteria"},
+          "requisition_id": "req_test",
+          "criteria_passed": [],
+          "criteria_failed": ["cr_experience"]
+        },
+        "authorization_id": "auth_policy_v1",
+        "engine_version": "funnelops-test",
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    },
+    {
+      "name": "candidate_screen_escalate_parse_warning",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_valid_escalate_parse",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T00:04:00Z",
+        "decision": "escalate",
+        "reason": "parse_warning",
+        "user_id": "req_owner",
+        "agent_id": "screening_engine",
+        "action": "candidate.screen",
+        "resource": "candidate:cand_escalate_parse",
+        "context": {
+          "subject": {"uuid": "cand_escalate_parse", "payload_digest": "sha256:payload_escalate_parse"},
+          "requisition_id": "req_test",
+          "criteria_passed": [],
+          "criteria_failed": [],
+          "parse_warning": "missing_dates"
+        },
+        "authorization_id": "auth_policy_v1",
+        "engine_version": "funnelops-test",
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    },
+    {
+      "name": "candidate_screen_escalate_accommodation",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_valid_escalate_accommodation",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T00:05:00Z",
+        "decision": "escalate",
+        "reason": "accommodation_requested",
+        "user_id": "req_owner",
+        "agent_id": "screening_engine",
+        "action": "candidate.screen",
+        "resource": "candidate:cand_escalate_accommodation",
+        "context": {
+          "subject": {"uuid": "cand_escalate_accommodation", "payload_digest": "sha256:payload_escalate_accommodation"},
+          "requisition_id": "req_test",
+          "criteria_passed": [],
+          "criteria_failed": ["cr_license"]
+        },
+        "authorization_id": "auth_policy_v1",
+        "engine_version": "funnelops-test",
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    },
+    {
+      "name": "candidate_screen_escalate_context_missing",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_valid_escalate_missing",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T00:06:00Z",
+        "decision": "escalate",
+        "reason": "context_field_missing",
+        "user_id": "req_owner",
+        "agent_id": "screening_engine",
+        "action": "candidate.screen",
+        "resource": "candidate:cand_escalate_missing",
+        "context": {
+          "subject": {"uuid": "cand_escalate_missing", "payload_digest": "sha256:payload_escalate_missing"},
+          "requisition_id": "req_test",
+          "criteria_passed": [],
+          "criteria_failed": ["cr_missing_field"]
+        },
+        "authorization_id": "auth_policy_v1",
+        "engine_version": "funnelops-test",
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    },
+    {
+      "name": "candidate_review_replaces_confirm",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_valid_review",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T00:07:00Z",
+        "decision": "allow",
+        "reason": "review_confirmed_fit",
+        "user_id": "reviewer_opaque",
+        "agent_id": "ops_reviewer",
+        "action": "candidate.review",
+        "resource": "candidate:cand_confirm",
+        "context": {
+          "subject": {"uuid": "cand_confirm", "payload_digest": "sha256:payload_confirm"},
+          "requisition_id": "req_test",
+          "replaces_receipt": "rcp_valid_confirm",
+          "review_basis": ["cr_experience"]
+        },
+        "authorization_id": "auth_policy_v1",
+        "engine_version": "funnelops-test",
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    },
+    {
+      "name": "adverse_action_issue",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_valid_letter",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T00:08:00Z",
+        "decision": "allow",
+        "reason": "letter_issued",
+        "user_id": "ops_user",
+        "agent_id": "ops_reviewer",
+        "action": "adverse_action.issue",
+        "resource": "candidate:cand_knockout",
+        "context": {
+          "subject": {"uuid": "cand_knockout", "payload_digest": "sha256:payload_knockout"},
+          "decision_refs": ["rcp_valid_knockout"]
+        },
+        "authorization_id": "auth_policy_v1",
+        "engine_version": "funnelops-test",
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    },
+    {
+      "name": "audit_export",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_valid_audit",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T00:09:00Z",
+        "decision": "allow",
+        "reason": "export_generated",
+        "user_id": "ops_user",
+        "agent_id": "audit_worker",
+        "action": "audit.export",
+        "resource": "requisition:req_test",
+        "context": {
+          "manifest_digest": "sha256:manifest",
+          "filter": {"requisition_id": "req_test"}
+        },
+        "authorization_id": "auth_policy_v1",
+        "engine_version": "funnelops-test",
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    },
+    {
+      "name": "authorization_create",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_valid_auth_create",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T00:10:00Z",
+        "decision": "allow",
+        "reason": "authorization_created",
+        "user_id": "policy_admin",
+        "agent_id": "policy_service",
+        "action": "authorization.create",
+        "resource": "authorization:auth_policy_v1",
+        "context": {"policy": {"id": "pol_hourly_ops", "version": "1.0.0", "digest": "sha256:policy_v1"}},
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    },
+    {
+      "name": "authorization_revoke",
+      "receipt": {
+        "version": "1.0",
+        "receipt_id": "rcp_valid_auth_revoke",
+        "workspace_id": "ws_test",
+        "issued_at": "2026-07-15T00:11:00Z",
+        "decision": "allow",
+        "reason": "authorization_revoked",
+        "user_id": "policy_admin",
+        "agent_id": "policy_service",
+        "action": "authorization.revoke",
+        "resource": "authorization:auth_policy_v0",
+        "context": {
+          "revoked_by": "superseded",
+          "superseded_by": "auth_policy_v1"
+        },
+        "replaces": "auth_policy_v0",
+        "signature": {"alg": "Ed25519", "key_id": "test", "value": "test"}
+      }
+    }
+  ],
+  "invalid": []
+}
