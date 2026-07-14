@@ -28,14 +28,22 @@ PII_KEYS = {
     "ssn",
 }
 
+# v0.3: `reason` is the ISSUER's machine code (base spec 3.1); the producer's
+# screening semantics live in context (tier, detail_code, knockout, review_*).
 SCREEN_REASONS = {
-    ("allow", "criteria_met"),
-    ("deny", "knockout_failed"),
-    ("confirm", "confirm_threshold"),
-    ("escalate", "criteria_below_confirm"),
-    ("escalate", "parse_warning"),
-    ("escalate", "accommodation_requested"),
+    ("allow", "authorization_granted_action_active"),
+    ("deny", "deny_condition_matched"),
+    ("confirm", "confirm_condition_matched"),
+    ("confirm", "context_field_missing"),
+    ("escalate", "escalate_condition_matched"),
     ("escalate", "context_field_missing"),
+}
+
+TIER_BY_DECISION = {
+    "allow": "advance",
+    "deny": "deny",
+    "confirm": "confirm",
+    "escalate": "escalate",
 }
 
 
@@ -104,15 +112,16 @@ def _profile_check(receipt: dict[str, Any]) -> str | None:
             return "vocabulary_mispairing"
         return _candidate_screen_check(receipt)
     if action == "candidate.review":
-        if decision not in {"allow", "deny"} or not reason.startswith("review_"):
+        review_reasons = {"authorization_granted_action_active", "deny_condition_matched"}
+        if decision not in {"allow", "deny"} or reason not in review_reasons:
             return "vocabulary_mispairing"
         return _review_check(receipt)
     if action == "adverse_action.issue":
-        if (decision, reason) != ("allow", "letter_issued"):
+        if (decision, reason) != ("allow", "authorization_granted_action_active"):
             return "vocabulary_mispairing"
         return None if "decision_refs" in context else "missing_decision_refs"
     if action == "audit.export":
-        if (decision, reason) != ("allow", "export_generated"):
+        if (decision, reason) != ("allow", "authorization_granted_action_active"):
             return "vocabulary_mispairing"
         if "manifest_digest" not in context or "filter" not in context:
             return "missing_audit_context"
@@ -132,11 +141,13 @@ def _candidate_screen_check(receipt: dict[str, Any]) -> str | None:
     context = receipt["context"]
     if "subject" not in context or "requisition_id" not in context:
         return "missing_subject_or_requisition"
+    if context.get("tier") != TIER_BY_DECISION[receipt["decision"]]:
+        return "tier_decision_mismatch"
     if receipt["decision"] != "deny":
         if "criteria_passed" not in context or "criteria_failed" not in context:
             return "missing_criteria_context"
-        if receipt["reason"] == "parse_warning" and "parse_warning" not in context:
-            return "missing_parse_warning"
+        if receipt["decision"] == "escalate" and "detail_code" not in context:
+            return "missing_detail_code"
         return None
     policy_eval = receipt.get("policy_eval")
     if not isinstance(policy_eval, dict):
@@ -156,6 +167,8 @@ def _candidate_screen_check(receipt: dict[str, Any]) -> str | None:
 
 def _review_check(receipt: dict[str, Any]) -> str | None:
     context = receipt["context"]
+    if context.get("review_decision") not in {"advance", "reject"}:
+        return "missing_review_decision"
     if "replaces_receipt" not in context:
         return "missing_replaces_receipt"
     if "requisition_id" not in context:

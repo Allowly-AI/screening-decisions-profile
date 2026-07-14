@@ -16,17 +16,21 @@ A published, employer-approved **policy version** is represented as one immutabl
 - Every screening action receipt pins the policy in force via its top-level `authorization_id` — no profile machinery needed; this is the base format working as designed.
 
 ## 4 · Action vocabulary (normative)
-All screening receipts are **action receipts** (base §3.3), `decision ∈ {allow, deny, confirm, escalate}`:
-| action | decision | reason (machine code) | Meaning |
-|---|---|---|---|
-| `candidate.screen` | allow | `criteria_met` | Automated tier: Advance |
-| `candidate.screen` | deny | `knockout_failed` | Objective knockout; `policy_eval` REQUIRED (§6) |
-| `candidate.screen` | confirm | `confirm_threshold` | Middle tier; awaits human review |
-| `candidate.screen` | escalate | `criteria_below_confirm` · `parse_warning` · `accommodation_requested` · `context_field_missing` | Routed to human judgment |
-| `candidate.review` | allow \| deny | producer-registered `review_*` codes (e.g. `review_experience_below_min`) | Human resolution of a confirm, or override of any decided receipt |
-| `adverse_action.issue` | allow | `letter_issued` | Adverse-action communication generated |
-| `audit.export` | allow | `export_generated` | Audit pack produced |
-`reason` is machine-readable only (base §3.1); human-readable text (e.g., a policy citation) goes in `context`. Producers MUST NOT reuse these action names with different semantics; additional actions use a producer prefix (§10).
+All screening receipts are **action receipts** (base §3.3), `decision ∈ {allow, deny, confirm, escalate}`.
+
+**v0.3 correction (aligned to the live issuer):** `reason` belongs to the ISSUER — it is the issuer's machine code for how the decision was reached (base §3.1), not a producer-defined field. The producer's screening semantics are **context conventions**: `tier` (MUST equal the decision's tier — advance/deny/confirm/escalate), `detail_code` (escalation detail: `criteria_below_confirm` · `parse_warning:*` · `accommodation_requested` · `context_field_missing`), `knockout` (§6), and `review_decision` (below). The verbs are routed by the issuer's per-action conditions evaluated against `context.tier`.
+
+| action | decision | issuer reason (observed) | Producer context (MUST) | Meaning |
+|---|---|---|---|---|
+| `candidate.screen` | allow | `authorization_granted_action_active` | `tier: "advance"`, criteria_passed[] | Automated tier: Advance |
+| `candidate.screen` | deny | `deny_condition_matched` | `tier: "deny"`, `knockout` (§6), citation | Objective knockout; `policy_eval` REQUIRED (§6) |
+| `candidate.screen` | confirm | `confirm_condition_matched` · `context_field_missing` | `tier: "confirm"`, criteria_passed/failed[] | Middle tier; awaits human review |
+| `candidate.screen` | escalate | `escalate_condition_matched` · `context_field_missing` | `tier: "escalate"`, `detail_code` | Routed to human judgment |
+| `candidate.review` | allow \| deny | `authorization_granted_action_active` \| `deny_condition_matched` | `review_decision: "advance"\|"reject"`, `review_basis`, `replaces_receipt` (§8) | Human resolution of a confirm, or override |
+| `adverse_action.issue` | allow | `authorization_granted_action_active` | `decision_refs[]` | Adverse-action communication generated |
+| `audit.export` | allow | `authorization_granted_action_active` | `manifest_digest`, `filter` | Audit pack produced |
+
+Human-readable text (e.g., a policy citation) goes in `context`. Producers MUST NOT reuse these action names with different semantics; additional actions use a producer prefix (§10). Until the issuer ships `deny_when` condition routing, deny rows above are the target contract: producers park deny outcomes rather than minting a mismatched verb.
 
 ## 5 · Subject, resource, and actor semantics
 - `resource` MUST be `candidate:<uuid>` for `candidate.screen`, `candidate.review`, and `adverse_action.issue`; for `audit.export` it SHOULD be `requisition:<id>` or `null`.

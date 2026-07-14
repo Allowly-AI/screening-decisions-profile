@@ -17,3 +17,6 @@
 
 ## 0.1.0 (2026-07-15) — Initial draft
 - First public draft; superseded same-day by 0.2.0 after alignment against the published base specification.
+
+## v0.3.1
+- §4 issuer-vocabulary alignment; deterministic vector re-signer.
