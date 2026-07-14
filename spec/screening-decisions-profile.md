@@ -1,7 +1,7 @@
 # Screening Decisions Profile — v0.2 (Draft)
 **A profile of the Allowly Receipt Format v1.0.0 (wire version "1.0") for employment screening decisions.**
 
-Status: **Draft.** Aligned to the published base specification at https://github.com/Allowly-AI/allowly-receipt-format (spec/receipt-format.md, 1.0.0 Stable). License: profile text **CC BY 4.0**; schemas and validators **Apache 2.0** (matching the base repo). Editor: FunnelOps (Druim Pacific LLC). Contributions by pull request. "Allowly" is a trademark; see §11.
+Status: **Draft.** Aligned to the published base specification at https://github.com/Allowly-AI/allowly-receipt-format (spec/receipt-format.md, 1.0.0 Stable). License: profile text **CC BY 4.0**; schemas and validators **Apache 2.0** (matching the base repo). Editor: FunnelOps LLC. Contributions by pull request. "Allowly" is a trademark; see §11.
 
 ## 1 · Purpose & design constraint
 This profile maps employment-screening decisions — automated knockouts, tier assignments, human reviews and overrides, corrections, adverse-action issuance, audit exports — onto unmodified base-format receipts. The base format's §3.1 rule is absolute: **verifiers reject unknown top-level fields**, so this profile adds none. Everything profile-specific lives in the fields the base format designates as issuer/customer-defined: the `action` and `reason` vocabularies, `resource`, `agent_id`/`user_id` semantics, and the `context` object. A profile receipt is therefore verifiable by any stock base-format verifier today; profile conformance is an additional, layered check (§9).
