@@ -1,13 +1,12 @@
 # BLOCKED
 
 ## R1 valid vectors vs FunnelOps G1 snapshots
-Question: Should vectors follow the current profile spec or current FunnelOps G1 request snapshots when they disagree?
+Question: What artifact proves these valid vectors were sourced from FunnelOps G1 request snapshots?
 
-Context: R1 requires valid vectors sourced from FunnelOps G1 request snapshots, but current app event bodies drift from the profile in a few places. Examples: `candidate_screen_body` places `policy_eval` under `context`, while the profile specifies top-level `policy_eval`; `letter_body` uses resource `adverse_action`, while the profile requires `candidate:<uuid>` for `adverse_action.issue`.
+Context: R1 requires valid vectors sourced from FunnelOps G1 request snapshots. FunnelOps serializers now align with the public profile (`policy_eval` top-level; `adverse_action.issue` uses `candidate:<uuid>`), but this seed repo still lacks a checked-in export or regeneration artifact proving the signed vector bodies came from a named FunnelOps snapshot run.
 
 Options:
-- Keep vectors profile-conformant and document the implementation drift.
-- Change the profile vectors to mirror current implementation snapshots, making the profile validator reject its own spec.
-- Update FunnelOps event serializers to match the public profile, then regenerate vectors from those snapshots.
+- Keep the current signed, profile-conformant vectors and document the missing provenance artifact.
+- Add a small FunnelOps snapshot export/regeneration step and replace the valid vector bodies from that output.
 
-Recommendation: Keep vectors profile-conformant in R1 and open a follow-up to align FunnelOps serializers before claiming snapshot-sourced public vectors.
+Recommendation: Keep the current vectors for R1 validation; add the snapshot export/regeneration artifact before claiming snapshot-sourced public vectors.
