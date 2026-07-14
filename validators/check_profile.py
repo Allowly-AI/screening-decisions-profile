@@ -214,6 +214,11 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("receipt")
     parser.add_argument("--vectors", action="store_true")
+    parser.add_argument(
+        "--keys",
+        help="issuer keys.json (dashboard download, or the public "
+        "GET /v1/workspaces/{workspace_id}/keys endpoint)",
+    )
     args = parser.parse_args(argv)
     path = Path(args.receipt)
     if args.vectors:
@@ -227,6 +232,8 @@ def main(argv: list[str] | None = None) -> int:
     doc = json.loads(path.read_text(encoding="utf-8"))
     receipt = doc.get("receipt", doc)
     keys = doc.get("keys")
+    if args.keys:
+        keys = json.loads(Path(args.keys).read_text(encoding="utf-8"))
     reason = validate_receipt(receipt, keys=keys)
     if reason is not None:
         print(reason)
