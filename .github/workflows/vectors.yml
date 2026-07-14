@@ -1,0 +1,16 @@
+name: Profile vectors
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  validate-vectors:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate profile vectors
+        run: python3 validators/check_profile.py vectors/vectors.json --vectors
