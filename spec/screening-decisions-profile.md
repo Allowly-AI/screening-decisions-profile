@@ -1,0 +1,117 @@
+# Screening Decisions Profile — v0.2 (Draft)
+**A profile of the Allowly Receipt Format v1.0.0 (wire version "1.0") for employment screening decisions.**
+
+Status: **Draft.** Aligned to the published base specification at https://github.com/Allowly-AI/allowly-receipt-format (spec/receipt-format.md, 1.0.0 Stable). License: profile text **CC BY 4.0**; schemas and validators **Apache 2.0** (matching the base repo). Editor: FunnelOps (Druim Pacific LLC). Contributions by pull request. "Allowly" is a trademark; see §11.
+
+## 1 · Purpose & design constraint
+This profile maps employment-screening decisions — automated knockouts, tier assignments, human reviews and overrides, corrections, adverse-action issuance, audit exports — onto unmodified base-format receipts. The base format's §3.1 rule is absolute: **verifiers reject unknown top-level fields**, so this profile adds none. Everything profile-specific lives in the fields the base format designates as issuer/customer-defined: the `action` and `reason` vocabularies, `resource`, `agent_id`/`user_id` semantics, and the `context` object. A profile receipt is therefore verifiable by any stock base-format verifier today; profile conformance is an additional, layered check (§9).
+
+## 2 · Conformance
+RFC 2119 keywords. A **Producer** is the party requesting receipts from an issuer (e.g., a screening system calling the issuer's `/check` and lifecycle endpoints) such that emitted receipts satisfy §§4–8. A **Profile Verifier** performs base verification first, then §9 checks. Base-format conformance is a precondition, not part of this profile.
+
+## 3 · Policy lifecycle = authorization lifecycle
+A published, employer-approved **policy version** is represented as one immutable base-format **authorization**:
+- Publishing policy `{id, version}` MUST produce an `authorization.create` event receipt whose `context` carries `policy: {"id", "version", "digest"}`, where `digest` is `sha256:` over the policy document canonicalized by the **base §4 rules** (UTF-16 key sort; integers only — fractional policy values MUST be scaled integers or strings).
+- Superseding a policy version MUST follow the base lineage convention: revoke the predecessor (`context.revoked_by: "superseded"`, `context.superseded_by: <successor authorization_id>`) and create the successor (`context.replaces: <predecessor authorization_id>`).
+- Every screening action receipt pins the policy in force via its top-level `authorization_id` — no profile machinery needed; this is the base format working as designed.
+
+## 4 · Action vocabulary (normative)
+All screening receipts are **action receipts** (base §3.3), `decision ∈ {allow, deny, confirm, escalate}`:
+| action | decision | reason (machine code) | Meaning |
+|---|---|---|---|
+| `candidate.screen` | allow | `criteria_met` | Automated tier: Advance |
+| `candidate.screen` | deny | `knockout_failed` | Objective knockout; `policy_eval` REQUIRED (§6) |
+| `candidate.screen` | confirm | `confirm_threshold` | Middle tier; awaits human review |
+| `candidate.screen` | escalate | `criteria_below_confirm` · `parse_warning` · `accommodation_requested` · `context_field_missing` | Routed to human judgment |
+| `candidate.review` | allow \| deny | producer-registered `review_*` codes (e.g. `review_experience_below_min`) | Human resolution of a confirm, or override of any decided receipt |
+| `adverse_action.issue` | allow | `letter_issued` | Adverse-action communication generated |
+| `audit.export` | allow | `export_generated` | Audit pack produced |
+`reason` is machine-readable only (base §3.1); human-readable text (e.g., a policy citation) goes in `context`. Producers MUST NOT reuse these action names with different semantics; additional actions use a producer prefix (§10).
+
+## 5 · Subject, resource, and actor semantics
+- `resource` MUST be `candidate:<uuid>` for `candidate.screen`, `candidate.review`, and `adverse_action.issue`; for `audit.export` it SHOULD be `requisition:<id>` or `null`.
+- `<uuid>` is the client-scoped candidate identifier. The base §10.6 guidance is **elevated to MUST** here: the uuid MUST be opaque (no PII), stable per candidate-requisition, and if derived from an identifier, derived only via salted keyed transformation — `sha256(email)` without salt is non-conformant.
+- `context.subject` MUST be `{"uuid", "payload_digest"}` with optional `"file_digest"`; `payload_digest` is `sha256:` over the candidate field payload canonicalized by base §4 rules (therefore: integer/string/boolean/null values only — no floats, per base rule 6).
+- `agent_id` identifies the acting principal per base §3.1: the screening engine identity for `candidate.screen` (e.g., `screening_engine`), the human actor's **role** for `candidate.review` (e.g., `recruiter`). `user_id` is the employer-side principal on whose behalf the action runs (requisition owner for automated screens; the reviewer's opaque id for reviews). Neither may contain PII (base §10.6).
+
+## 6 · policy_eval usage
+For `knockout_failed`, `policy_eval` MUST be present and MUST follow the base §3.6.1 shape: `matched_condition` is the evaluated **condition object** `{"field", "op", "value"}` — never a bare rule name; base verifiers reject a string there on shape alone — and `field_value` is the evaluated value, observing base §10.7 minimization (the compared value, never source text). The knockout rule id SHOULD be carried as `context.knockout_id`; the full rule set is in any case recoverable via the receipt's `authorization_id`. For `criteria_met`, Producers SHOULD emit `policy_eval: {"matched_condition": null, "field_value": null}` — the base's "evaluated, nothing fired" attestation. The fail-closed convention (base §3.6.3, `reason: "context_field_missing"` → `confirm`) applies unchanged when a policy references an absent payload field.
+
+**Provenance gate (normative).** A `knockout_failed` denial MUST derive only from customer-asserted field values — fields the Producer's customer supplied directly (application-form answers, ATS export columns, payload fields), never values machine-extracted from application materials. A knockout field that is absent, or available only by machine extraction, MUST route to `escalate` with reason `context_field_missing` — never `deny`. When `context.fields_supplied_by` (§7) is present on a `knockout_failed` receipt, Profile Verifiers MUST check that the evaluated knockout field appears under `"customer"`; a knockout field listed only under `"cv"` is non-conformant. Rationale: the only fully automated rejection path in this profile must rest on asserted facts, not extracted ones.
+
+## 7 · Context schema per action (normative for profile conformance)
+Beyond `subject` (§5), `context` MUST/SHOULD carry:
+- `candidate.screen`: `requisition_id` MUST; `criteria_passed[]` and `criteria_failed[]` (criterion **ids only**, never values) MUST for allow/confirm/escalate; `citation` (policy text, verbatim from the policy document) MUST for deny; `knockout_id` SHOULD for deny (§6); `parse_warning` code MUST when reason is `parse_warning`; `fields_supplied_by` SHOULD list field **names** by provenance: `{"customer": [...], "cv": [...]}`.
+- `candidate.review`: `replaces_receipt: <receipt_id>` MUST (§8); `requisition_id` MUST; `review_basis` SHOULD (criterion ids considered).
+- `adverse_action.issue`: `decision_refs: [<receipt_id>…]` MUST.
+- `audit.export`: `manifest_digest` MUST; `filter` (the query, PII-free) MUST.
+Minimization rule (base §10.7 extended): `context` MUST NOT contain candidate field **values** other than the single `policy_eval.field_value`; ids, digests, and counts only. Nothing anywhere in a receipt may contain names, emails, phone numbers, or free text from application materials.
+
+## 8 · Decision chains via `replaces_receipt`
+The base format validates lineage pointers nowhere — they are "audit conveniences… the value is in making an honest issuer's intent legible" (base §3.3). This profile adopts the same philosophy at the decision level and makes the pointer **profile-mandatory**:
+- A `candidate.review` receipt MUST carry `context.replaces_receipt` naming exactly one prior receipt: the `confirm` receipt it resolves, or the decided receipt it overrides.
+- A **correction** (customer resubmits corrected fields under the same uuid) MUST produce a new `candidate.screen` receipt whose `context.replaces_receipt` names the last decided receipt for that uuid under the same policy `id`, with the new `payload_digest`. History is superseded, never edited.
+- Profile Verifiers MUST check: at most one resolver per `confirm` receipt within an export; every `replaces_receipt` target exists in scope; chains are acyclic. A broken chain is reported, not repaired.
+
+## 9 · Verification & the independence note
+Profile verification = (1) base §7 verification (signature over base §4 canonical bytes, published issuer keys); (2) vocabulary and pairing checks per §§4–7; (3) chain checks per §8. **Format conformance is not attestation independence.** These receipts derive their evidentiary weight from the issuer being operationally independent of the screening system and its customer: an issuer that is the decider signing its own homework produces conformant receipts that prove only self-consistency. Profile Verifiers SHOULD surface the issuer identity (`workspace_id` → published key ownership) and its relationship to the Producer.
+
+## 10 · Extensions
+Additional actions MUST be prefixed `x_<vendor>.` ; additional context keys MUST be prefixed `x_`. Extensions MUST NOT weaken any MUST above and MUST respect base canonicalization (no floats, I-JSON integer bounds).
+
+## 11 · Versioning, IP, marks
+Profile versions follow semver, independent of the base wire version; this profile requires only wire `"1.0"` — **no base-format changes and no new top-level fields are needed to implement it today.** Profile text CC BY 4.0. Conformance claims ("implements the Screening Decisions Profile v0.x") are free for conformant implementations; use of the Allowly name beyond factual reference follows the Allowly trademark policy.
+
+## 12 · Examples (fixture-aligned; envelope fields per base §3)
+**A — knockout (fixture c008):**
+```json
+{
+  "version": "1.0",
+  "receipt_id": "rcp_01K2SCRN00000000000000C008",
+  "workspace_id": "ws_01HXFUNNELOPS0000000000000",
+  "issued_at": "2026-09-14T17:03:22.481Z",
+  "decision": "deny",
+  "reason": "knockout_failed",
+  "user_id": "req_owner_114",
+  "agent_id": "screening_engine",
+  "action": "candidate.screen",
+  "resource": "candidate:c008",
+  "context": {
+    "subject": { "uuid": "c008", "payload_digest": "sha256:6b0c…" },
+    "requisition_id": "req_114",
+    "knockout_id": "ko_work_auth",
+    "citation": "Role requires authorization to work in the United States (self-attested)."
+  },
+  "authorization_id": "auth_01K2POLHOURLYOPS10000000000",
+  "engine_version": "funnelops-2026.09.1",
+  "policy_eval": { "matched_condition": { "field": "work_authorization", "op": "eq", "value": true }, "field_value": false },
+  "signature": { "alg": "Ed25519", "key_id": "…", "value": "…" }
+}
+```
+**B — confirm and human resolution (fixture c004):** first a `candidate.screen` receipt with `decision: "confirm"`, `reason: "confirm_threshold"`, `context.criteria_failed: ["cr_experience"]`; then:
+```json
+{
+  "version": "1.0",
+  "receipt_id": "rcp_01K2REVW00000000000000C004",
+  "workspace_id": "ws_01HXFUNNELOPS0000000000000",
+  "issued_at": "2026-09-15T09:41:02.007Z",
+  "decision": "deny",
+  "reason": "review_experience_below_min",
+  "user_id": "rev_usr_7",
+  "agent_id": "recruiter",
+  "action": "candidate.review",
+  "resource": "candidate:c004",
+  "context": {
+    "subject": { "uuid": "c004", "payload_digest": "sha256:9d41…" },
+    "requisition_id": "req_114",
+    "replaces_receipt": "rcp_01K2SCRN00000000000000C004",
+    "review_basis": ["cr_experience"]
+  },
+  "authorization_id": "auth_01K2POLHOURLYOPS10000000000",
+  "engine_version": "funnelops-2026.09.1",
+  "signature": { "alg": "Ed25519", "key_id": "…", "value": "…" }
+}
+```
+**C — correction chain:** the customer resubmits c004 with corrected `warehouse_years: 3` under the same uuid; the resulting `candidate.screen` receipt (`decision: "allow"`, `reason: "criteria_met"`) carries the new `payload_digest` and `context.replaces_receipt` naming the review receipt above. The record shows the wrong value, who decided on it, the correction, and the new outcome — nothing erased.
+
+*Where this profile and the base specification conflict, the base specification governs.*

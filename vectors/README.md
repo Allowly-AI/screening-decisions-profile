@@ -1,0 +1,1 @@
+Profile test vectors land here (roadmap item 1): valid and invalid receipts exercising §§4–8 of the profile — vocabulary pairing, context schemas, replaces_receipt chains, PII prohibitions — in the base repo's test-vectors.json conventions. Generated vectors must pass stock base verification before profile checks are applied.
