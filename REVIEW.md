@@ -22,6 +22,10 @@ Builder: Codex. Local mode: branch `slice/R1`; no remote configured. This repo w
 - `test(vectors): R1.2 invalid profile vectors`
 - `feat(validator): R1.3 profile checks`
 - `ci: R1.4 validate profile vectors`
+- `docs: R1 review script`
+- `docs: R1 blockers`
+- `docs: clarify R1 base verifier blocker`
+- `fix(validator): use base verifier for R1 vectors`
 
 ## Verify
 ```sh
