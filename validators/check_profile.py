@@ -155,12 +155,14 @@ def _candidate_screen_check(receipt: dict[str, Any]) -> str | None:
     matched = policy_eval.get("matched_condition")
     if not isinstance(matched, dict) or "field" not in matched:
         return "missing_policy_eval"
+    knockout = context.get("knockout")
+    if not isinstance(knockout, dict) or not {"field", "op", "value"} <= set(knockout):
+        return "missing_knockout_context"
     if "citation" not in context:
         return "missing_citation"
     supplied = context.get("fields_supplied_by")
     if isinstance(supplied, dict):
-        field = matched["field"]
-        if field not in supplied.get("customer", []):
+        if knockout["field"] not in supplied.get("customer", []):
             return "provenance_gate_violation"
     return None
 
