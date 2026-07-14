@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0 (2026-07-15) — Vectors + validator
+- Added profile vectors covering valid screening, review, adverse-action, audit-export, and authorization lifecycle receipts.
+- Added invalid vectors for vocabulary mismatches, required context omissions, floats, PII, broken replacement chains, and provenance-gate violations.
+- Added `validators/check_profile.py`, a thin profile validator that performs a base precheck before profile vocabulary, context, privacy, provenance, and chain checks.
+- Added CI workflow to run the validator over all bundled vectors.
+
 ## 0.2.0 (2026-07-15) — Aligned to base 1.0.0 Stable
 - Rewritten as a strict context-profile: **zero new top-level fields** (base §3.1 unknown-field rule); verifies with stock base verifiers on wire `"1.0"`.
 - Policy lifecycle remapped to base authorization lifecycle: publish = `authorization.create` with `context.policy {id, version, digest}`; supersession via the base lineage convention (`replaces` / `revoked_by: "superseded"` / `superseded_by`). `authorization_id` pins the policy in force on every screening receipt.
