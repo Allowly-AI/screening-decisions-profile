@@ -10,6 +10,7 @@ Builder: Codex. Local mode: branch `slice/R1`; no remote configured. This repo w
 
 ## Files Touched
 - `vectors/vectors.json`
+- `vectors/SOURCES.md`
 - `validators/check_profile.py`
 - `.github/workflows/vectors.yml`
 - `requirements.txt`
@@ -50,4 +51,4 @@ profile vectors passed
 - `allowly-receipt-format` from `Allowly-AI/allowly-receipt-format` verifier package.
 
 ## BLOCKED
-- R1 valid vectors vs FunnelOps G1 snapshots: vectors are profile-conformant, but this repo lacks a checked-in export/regeneration artifact proving they came from a named FunnelOps snapshot run.
+- None.
