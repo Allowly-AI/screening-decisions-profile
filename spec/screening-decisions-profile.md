@@ -30,7 +30,7 @@ All screening receipts are **action receipts** (base §3.3), `decision ∈ {allo
 | `adverse_action.issue` | allow | `authorization_granted_action_active` | `decision_refs[]` | Adverse-action communication generated |
 | `audit.export` | allow | `authorization_granted_action_active` | `manifest_digest`, `filter` | Audit pack produced |
 
-Human-readable text (e.g., a policy citation) goes in `context`. Producers MUST NOT reuse these action names with different semantics; additional actions use a producer prefix (§10). Until the issuer ships `deny_when` condition routing, deny rows above are the target contract: producers park deny outcomes rather than minting a mismatched verb.
+Human-readable text (e.g., a policy citation) goes in `context`. Producers MUST NOT reuse these action names with different semantics; additional actions use a producer prefix (§10). (Deny routing via `deny_when` is live in the issuer as of Jul 14, 2026; the deny rows above are observed behavior, not aspiration.)
 
 ## 5 · Subject, resource, and actor semantics
 - `resource` MUST be `candidate:<uuid>` for `candidate.screen`, `candidate.review`, and `adverse_action.issue`; for `audit.export` it SHOULD be `requisition:<id>` or `null`.
