@@ -23,5 +23,20 @@ Kept deliberately separate from the base repo: the base format is Stable and cha
 2. `validators/` — a thin profile-check layered on the base Python verifier: run base verification first, then §9 profile checks. Single file, CLI: exit 0/1.
 3. Reference implementation in production (FunnelOps) + one external implementer → Stable.
 
+## Validator
+Run the profile validator against the bundled vectors:
+
+```sh
+python3 validators/check_profile.py vectors/vectors.json --vectors
+```
+
+Run it against one receipt JSON:
+
+```sh
+python3 validators/check_profile.py receipt.json
+```
+
+The validator performs a minimal base-format precheck first, then the profile checks for vocabulary pairings, required context by action, PII-free context, provenance gating, and `replaces_receipt` chains.
+
 ## Reporting issues
 Spec ambiguities and vector disagreements: GitHub issues, following the base repo's conventions. Security: security@allowly.ai.
