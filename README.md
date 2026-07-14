@@ -24,9 +24,12 @@ Kept deliberately separate from the base repo: the base format is Stable and cha
 3. Reference implementation in production (FunnelOps) + one external implementer → Stable.
 
 ## Validator
+Requires Python 3.10+ for the stock base verifier.
+
 Run the profile validator against the bundled vectors:
 
 ```sh
+python3 -m pip install -r requirements.txt
 python3 validators/check_profile.py vectors/vectors.json --vectors
 ```
 

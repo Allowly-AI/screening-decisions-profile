@@ -1,16 +1,5 @@
 # BLOCKED
 
-## R1 base verifier dependency
-Question: Which stock Allowly base Python verifier should `validators/check_profile.py` call before profile checks?
-
-Context: R1 requires "stdlib + the base Python verifier as its only dep" and base verification first. The seed repo does not include the base verifier. The public base repo exists at `Allowly-AI/allowly-receipt-format` and its Python verifier lives under `verifiers/python`, but it is not vendored or installed in this seed repo; current vectors also use placeholder signatures, so stock verification cannot honestly pass yet.
-
-Options:
-- Vendor/submodule the published base Python verifier and regenerate vectors with real base-verifiable signatures.
-- Keep the current minimal base precheck in the seed repo until the base verifier is supplied.
-
-Recommendation: Keep the minimal precheck for local seed validation; vendor the stock verifier and regenerate signed vectors before publishing the public repo.
-
 ## R1 valid vectors vs FunnelOps G1 snapshots
 Question: Should vectors follow the current profile spec or current FunnelOps G1 request snapshots when they disagree?
 

@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Validate Screening Decisions Profile receipts.
 
-This file intentionally keeps the profile layer thin. A production verifier should
-call the stock Allowly base verifier first; this seed uses a minimal base precheck
-so the profile vectors are executable without vendoring the base repository.
+This file intentionally keeps the profile layer thin: stock base verification,
+then profile checks.
 """
 
 from __future__ import annotations
@@ -14,24 +13,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-ALLOWED_TOP_LEVEL = {
-    "action",
-    "agent_id",
-    "authorization_id",
-    "context",
-    "decision",
-    "engine_version",
-    "issued_at",
-    "policy_eval",
-    "reason",
-    "receipt_id",
-    "replaces",
-    "resource",
-    "signature",
-    "user_id",
-    "version",
-    "workspace_id",
-}
+from allowly_receipt_format import VerificationError, load_keys_from_json, verify_receipt
 
 PII_KEYS = {
     "address",
@@ -57,8 +39,12 @@ SCREEN_REASONS = {
 }
 
 
-def validate_receipt(receipt: dict[str, Any], scope: dict[str, dict] | None = None) -> str | None:
-    base_error = _base_precheck(receipt)
+def validate_receipt(
+    receipt: dict[str, Any],
+    scope: dict[str, dict] | None = None,
+    keys: dict[str, Any] | None = None,
+) -> str | None:
+    base_error = _base_verify(receipt, keys)
     if base_error is not None:
         return base_error
     profile_error = _profile_check(receipt)
@@ -71,16 +57,17 @@ def validate_receipt(receipt: dict[str, Any], scope: dict[str, dict] | None = No
 
 def validate_vectors(path: Path) -> list[str]:
     data = json.loads(path.read_text(encoding="utf-8"))
+    keys = data["keys"]
     receipts = [item["receipt"] for item in data.get("valid", [])]
     receipts.extend(item["receipt"] for item in data.get("invalid", []))
     scope = {receipt["receipt_id"]: receipt for receipt in receipts}
     failures: list[str] = []
     for item in data.get("valid", []):
-        reason = validate_receipt(item["receipt"], scope)
+        reason = validate_receipt(item["receipt"], scope, keys)
         if reason is not None:
             failures.append(f"valid {item['name']} failed: {reason}")
     for item in data.get("invalid", []):
-        reason = validate_receipt(item["receipt"], scope)
+        reason = validate_receipt(item["receipt"], scope, keys)
         if reason != item["reason"]:
             failures.append(
                 f"invalid {item['name']} expected {item['reason']} got {reason or 'pass'}"
@@ -88,24 +75,19 @@ def validate_vectors(path: Path) -> list[str]:
     return failures
 
 
-def _base_precheck(receipt: dict[str, Any]) -> str | None:
-    required = {
-        "action",
-        "context",
-        "decision",
-        "issued_at",
-        "reason",
-        "receipt_id",
-        "signature",
-        "version",
-        "workspace_id",
-    }
-    if not required <= set(receipt):
-        return "base_missing_required"
-    if set(receipt) - ALLOWED_TOP_LEVEL:
-        return "base_unknown_top_level"
-    if _contains_float(receipt):
-        return "float_in_context"
+def _base_verify(receipt: dict[str, Any], keys: dict[str, Any] | None) -> str | None:
+    if keys is None:
+        return "base_keys_required"
+    try:
+        verify_receipt(
+            receipt,
+            load_keys_from_json(keys),
+            expected_workspace_id=keys.get("workspace_id"),
+        )
+    except VerificationError as exc:
+        if "non-integer numbers" in str(exc):
+            return "float_in_context"
+        return "base_verification_failed"
     return None
 
 
@@ -114,7 +96,7 @@ def _profile_check(receipt: dict[str, Any]) -> str | None:
     pii_error = _pii_check(context)
     if pii_error is not None:
         return pii_error
-    action = receipt["action"]
+    action = receipt.get("action") or receipt.get("event")
     decision = receipt["decision"]
     reason = receipt["reason"]
     if action == "candidate.screen":
@@ -136,11 +118,11 @@ def _profile_check(receipt: dict[str, Any]) -> str | None:
             return "missing_audit_context"
         return None
     if action == "authorization.create":
-        if (decision, reason) != ("allow", "authorization_created"):
+        if decision != "authorization_granted":
             return "vocabulary_mispairing"
         return None if "policy" in context else "missing_policy_context"
     if action == "authorization.revoke":
-        if (decision, reason) != ("allow", "authorization_revoked"):
+        if decision != "authorization_revoked":
             return "vocabulary_mispairing"
         return None if "revoked_by" in context else "missing_revoke_context"
     return "vocabulary_mispairing"
@@ -197,16 +179,6 @@ def _chain_check(receipt: dict[str, Any], scope: dict[str, dict]) -> str | None:
     return None
 
 
-def _contains_float(value: Any) -> bool:
-    if isinstance(value, float):
-        return True
-    if isinstance(value, dict):
-        return any(_contains_float(child) for child in value.values())
-    if isinstance(value, list):
-        return any(_contains_float(child) for child in value)
-    return False
-
-
 def _pii_check(value: Any) -> str | None:
     if isinstance(value, dict):
         for key, child in value.items():
@@ -239,8 +211,10 @@ def main(argv: list[str] | None = None) -> int:
             return 1
         print("profile vectors passed")
         return 0
-    receipt = json.loads(path.read_text(encoding="utf-8"))
-    reason = validate_receipt(receipt)
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    receipt = doc.get("receipt", doc)
+    keys = doc.get("keys")
+    reason = validate_receipt(receipt, keys=keys)
     if reason is not None:
         print(reason)
         return 1
