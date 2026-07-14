@@ -14,6 +14,7 @@ Builder: Codex. Local mode: branch `slice/R1`; no remote configured. This repo w
 - `.github/workflows/vectors.yml`
 - `README.md`
 - `CHANGELOG.md`
+- `BLOCKED.md`
 
 ## Commits
 - `test(vectors): R1.1 valid profile vectors`
@@ -42,11 +43,11 @@ profile vectors passed
 ```
 
 ## Cuts
-- The seed repo did not include or vendor the stock base Python verifier. The validator therefore performs a minimal base-format precheck before profile checks, and is structured so a published base verifier can replace that precheck without changing vector semantics.
-- Valid vector bodies are profile-conformant seed receipts. The current FunnelOps app event serializers have drift in a few profile details, so exact request-snapshot import was not used here.
+- None hidden. See `BLOCKED.md`.
 
 ## New Dependencies
 None.
 
 ## BLOCKED
-- None added in this repo. The cuts above should be turned into public issues if the profile repo is promoted beyond seed/local mode.
+- R1 base verifier dependency: seed repo lacks the stock base Python verifier, so validator uses a minimal base precheck.
+- R1 valid vectors vs FunnelOps G1 snapshots: current app event snapshots drift from the profile, so vectors remain profile-conformant rather than snapshot-sourced.
