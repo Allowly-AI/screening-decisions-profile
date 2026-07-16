@@ -49,6 +49,8 @@ Beyond `subject` (§5), `context` MUST/SHOULD carry:
 - `candidate.review`: `replaces_receipt: <receipt_id>` MUST (§8); `requisition_id` MUST; `review_basis` SHOULD (criterion ids considered).
 - `adverse_action.issue`: `decision_refs: [<receipt_id>…]` MUST.
 - `audit.export`: `manifest_digest` MUST; `filter` (the query, PII-free) MUST.
+**Operator attribution (all actions, OPTIONAL — v0.3.3).** `context` MAY carry `on_behalf_of: {"client": <customer-of-record legal name>, "workspace": <opaque workspace id>}` and `operator: <name of the system operator>`, naming who the decision was made for and who operated the producing system. These are profile-standard optional keys (no `x_` prefix, §10 notwithstanding), so third-party verifiers can attribute a receipt without vendor lookup. `client` is an organization name, never a candidate identifier; the minimization rule below is unaffected.
+
 Minimization rule (base §10.7 extended): `context` MUST NOT contain candidate field **values** other than the single `policy_eval.field_value`; ids, digests, and counts only. Nothing anywhere in a receipt may contain names, emails, phone numbers, or free text from application materials.
 
 ## 8 · Decision chains via `replaces_receipt`

@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.3 (2026-07-15) — Operator attribution
+- §7: `on_behalf_of {client, workspace}` + `operator` adopted as profile-standard OPTIONAL context keys on all actions (who the decision was made for / who operated the system). No `x_` prefix; minimization rule unaffected. Producer support shipped in FunnelOps K6 (live-verified in a signed staging receipt).
+- (Bookkeeping: v0.3.2 was the deny_when reason-vocabulary alignment, R3 merge e9a51cc — entry was missing here.)
+
 ## 0.3.0 (2026-07-15) — Vectors + validator
 - Added profile vectors covering valid screening, review, adverse-action, audit-export, and authorization lifecycle receipts.
 - Added invalid vectors for vocabulary mismatches, required context omissions, floats, PII, broken replacement chains, and provenance-gate violations.
