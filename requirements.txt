@@ -1,1 +1,1 @@
-https://github.com/Allowly-AI/allowly-receipt-format/archive/refs/tags/v3.0.0.zip#subdirectory=verifiers/python
+allowly-receipt-format==3.0.0
