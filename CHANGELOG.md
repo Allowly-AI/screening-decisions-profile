@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.4.1 (2026-07-23) — §12 examples aligned to v0.3 reason vocabulary
+- §12 examples predated the v0.3 issuer-owned `reason` correction and were rejected by the repo's own validator. Example A: `knockout_failed` → `deny_condition_matched`, `policy_eval` now the issuer's tier-routing condition (§6), context gains `tier`, `knockout` (4-key shape), `fields_supplied_by`. Example B: `review_experience_below_min` → `deny_condition_matched`, context gains `review_decision: "reject"`; prose `confirm_threshold` → `confirm_condition_matched`, `criteria_met` → `authorization_granted_action_active`. Both examples now pass `_profile_check`.
+
 ## v0.4.0 (2026-07-23) — Base wire version 3
 - Realigned to the base specification at wire version 3 (`schema_version: "3"`): the wire field renamed from `version`, and `alg`/`key_id` moved from the `signature` object to top level with `signature` now a flat base64url string (both are inside the signed payload; only `signature` itself is excluded from canonicalization). Timestamps are UTC millisecond precision.
 - Spec masthead, §11, §12 examples, and README updated from wire `"1.0"` / base 1.0.0 to wire `"3"`; fixed stale masthead version (said v0.2 while changelog was at v0.3.3).

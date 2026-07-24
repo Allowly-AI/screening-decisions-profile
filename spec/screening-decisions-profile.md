@@ -77,7 +77,7 @@ Profile versions follow semver, independent of the base wire version; this profi
   "workspace_id": "ws_01HXFUNNELOPS0000000000000",
   "issued_at": "2026-09-14T17:03:22.481Z",
   "decision": "deny",
-  "reason": "knockout_failed",
+  "reason": "deny_condition_matched",
   "user_id": "req_owner_114",
   "agent_id": "screening_engine",
   "action": "candidate.screen",
@@ -85,18 +85,21 @@ Profile versions follow semver, independent of the base wire version; this profi
   "context": {
     "subject": { "uuid": "c008", "payload_digest": "sha256:6b0c…" },
     "requisition_id": "req_114",
+    "tier": "deny",
+    "knockout": { "field": "work_authorization", "op": "eq", "value": true, "field_value": false },
     "knockout_id": "ko_work_auth",
-    "citation": "Role requires authorization to work in the United States (self-attested)."
+    "citation": "Role requires authorization to work in the United States (self-attested).",
+    "fields_supplied_by": { "customer": ["work_authorization"], "cv": [] }
   },
   "authorization_id": "auth_01K2POLHOURLYOPS10000000000",
   "engine_version": "funnelops-2026.09.1",
-  "policy_eval": { "matched_condition": { "field": "work_authorization", "op": "eq", "value": true }, "field_value": false },
+  "policy_eval": { "matched_condition": { "field": "tier", "op": "eq", "value": "deny" }, "field_value": "deny" },
   "alg": "Ed25519",
   "key_id": "…",
   "signature": "…"
 }
 ```
-**B — confirm and human resolution (fixture c004):** first a `candidate.screen` receipt with `decision: "confirm"`, `reason: "confirm_threshold"`, `context.criteria_failed: ["cr_experience"]`; then:
+**B — confirm and human resolution (fixture c004):** first a `candidate.screen` receipt with `decision: "confirm"`, `reason: "confirm_condition_matched"`, `context.tier: "confirm"`, `context.criteria_failed: ["cr_experience"]`; then:
 ```json
 {
   "schema_version": "3",
@@ -104,7 +107,7 @@ Profile versions follow semver, independent of the base wire version; this profi
   "workspace_id": "ws_01HXFUNNELOPS0000000000000",
   "issued_at": "2026-09-15T09:41:02.007Z",
   "decision": "deny",
-  "reason": "review_experience_below_min",
+  "reason": "deny_condition_matched",
   "user_id": "rev_usr_7",
   "agent_id": "recruiter",
   "action": "candidate.review",
@@ -112,6 +115,7 @@ Profile versions follow semver, independent of the base wire version; this profi
   "context": {
     "subject": { "uuid": "c004", "payload_digest": "sha256:9d41…" },
     "requisition_id": "req_114",
+    "review_decision": "reject",
     "replaces_receipt": "rcp_01K2SCRN00000000000000C004",
     "review_basis": ["cr_experience"]
   },
@@ -122,6 +126,6 @@ Profile versions follow semver, independent of the base wire version; this profi
   "signature": "…"
 }
 ```
-**C — correction chain:** the customer resubmits c004 with corrected `warehouse_years: 3` under the same uuid; the resulting `candidate.screen` receipt (`decision: "allow"`, `reason: "criteria_met"`) carries the new `payload_digest` and `context.replaces_receipt` naming the review receipt above. The record shows the wrong value, who decided on it, the correction, and the new outcome — nothing erased.
+**C — correction chain:** the customer resubmits c004 with corrected `warehouse_years: 3` under the same uuid; the resulting `candidate.screen` receipt (`decision: "allow"`, `reason: "authorization_granted_action_active"`) carries the new `payload_digest` and `context.replaces_receipt` naming the review receipt above. The record shows the wrong value, who decided on it, the correction, and the new outcome — nothing erased.
 
 *Where this profile and the base specification conflict, the base specification governs.*
