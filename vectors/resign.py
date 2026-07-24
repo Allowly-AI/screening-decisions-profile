@@ -34,17 +34,17 @@ def main() -> None:
     signed = skipped = 0
     for item in doc["valid"] + doc["invalid"]:
         receipt = item["receipt"]
+        # wire 3: alg/key_id are top-level and inside the signed payload;
+        # only "signature" itself is excluded from canonicalization.
+        receipt["alg"] = "Ed25519"
+        receipt["key_id"] = KEY_ID
         payload = {k: v for k, v in receipt.items() if k != "signature"}
         try:
             message = canonicalize(payload)
         except Exception:
             skipped += 1
             continue
-        receipt["signature"] = {
-            "alg": "Ed25519",
-            "key_id": KEY_ID,
-            "value": b64u(private.sign(message)),
-        }
+        receipt["signature"] = b64u(private.sign(message))
         signed += 1
 
     doc["keys"] = {
@@ -54,7 +54,7 @@ def main() -> None:
                 "key_id": KEY_ID,
                 "alg": "Ed25519",
                 "public_key": b64u(public),
-                "active_from": "2026-01-01T00:00:00Z",
+                "active_from": "2026-01-01T00:00:00.000Z",
                 "active_until": None,
             }
         ],

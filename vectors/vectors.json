@@ -4,10 +4,10 @@
   {
    "name": "candidate_screen_advance",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_valid_advance",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:00:00Z",
+    "issued_at": "2026-07-13T00:00:00.000Z",
     "decision": "allow",
     "reason": "authorization_granted_action_active",
     "user_id": "req_owner",
@@ -38,20 +38,18 @@
      "matched_condition": null,
      "field_value": null
     },
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key-v03",
-     "value": "ShwbV-UpWT87fgKw4TJx9J07h0W_-AovPwuGjcbrU_iL-gj8MAHFC7YgVxFjlJuqDl5kiyVPMWmP465FcRR9DA"
-    }
+    "signature": "W67H2Uzv5Ocd_5jv2YAspJutyvJFezskactDbF6NQ7xEocjmrvlG8QPckC9PcFH9EtufH_fz5smXfe3Tk_EwCQ",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   },
   {
    "name": "candidate_screen_knockout",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_valid_knockout",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:01:00Z",
+    "issued_at": "2026-07-13T00:01:00.000Z",
     "decision": "deny",
     "reason": "deny_condition_matched",
     "user_id": "req_owner",
@@ -90,20 +88,18 @@
      },
      "field_value": "deny"
     },
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key-v03",
-     "value": "0YjuJUspy6GNPDUJIzuLdN5ZkhbVM4r1COgXaUrTKyEN3BQDTv0ViRJw9oERINowX5wGNZFOQwKor7cY2HbBBA"
-    }
+    "signature": "DfDMlXqFmL2lbYBLcWFK5H_qvwbJ1tskfzQcuPjL9KIAZEWk2lmDZHC5k4fjhAKzilITS9LiRedu3UgjreYSDw",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   },
   {
    "name": "candidate_screen_confirm",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_valid_confirm",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:02:00Z",
+    "issued_at": "2026-07-13T00:02:00.000Z",
     "decision": "confirm",
     "reason": "confirm_condition_matched",
     "user_id": "req_owner",
@@ -132,20 +128,18 @@
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "funnelops-test",
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key-v03",
-     "value": "hTEXncMUs4y86lpCf5wtbDOfWrIGS2XCDYDydAAzvE6Ua77gVlEy6WYwCYDoWQNu54DYH_FG-8gVLn6Ndd8LBQ"
-    }
+    "signature": "HI-lm00CjduANPuTdb11PqpV2aT9qdBKUx1_QxgMFY1BBYMXQirBiYdAmvK1rYon5XodCrd-J_NXpbG-UCAbCw",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   },
   {
    "name": "candidate_screen_escalate_criteria",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_valid_escalate_criteria",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:03:00Z",
+    "issued_at": "2026-07-13T00:03:00.000Z",
     "decision": "escalate",
     "reason": "escalate_condition_matched",
     "user_id": "req_owner",
@@ -167,20 +161,18 @@
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "funnelops-test",
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key-v03",
-     "value": "YnKWrtVRCWaj3wWtKfvUP1KKtIh3-_7fnvRkBgVWdt6AfgL0wtIHrsvuW0X8vhQC5IpD5v-Js-tMzPbath4KDQ"
-    }
+    "signature": "K1uE6m2itxAF5GMgZxdrh16XNkSwCqEr-SfQ8Z3YKyYNa8Q8TXr-oGoRQw_L6EO41TOKIyrB70Tut9t39hasCg",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   },
   {
    "name": "candidate_screen_escalate_parse_warning",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_valid_escalate_parse",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:04:00Z",
+    "issued_at": "2026-07-13T00:04:00.000Z",
     "decision": "escalate",
     "reason": "escalate_condition_matched",
     "user_id": "req_owner",
@@ -201,20 +193,18 @@
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "funnelops-test",
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key-v03",
-     "value": "d7qdN3bSpOQus2_8tWkpY3l-Jn1pdTj6WyZksvF5-1aURoCoSpIehxrYiurc2wPxNnJW5OD_-JYEjIhak4WKCA"
-    }
+    "signature": "Odpito_ClzBeB8DAt9Qr5EyRlREh4rhTZUJp71UPesFUqqMfMsXRTHCSwhUIu_d6lk7kvw0vwbMi80YDcR2pBw",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   },
   {
    "name": "candidate_screen_escalate_accommodation",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_valid_escalate_accommodation",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:05:00Z",
+    "issued_at": "2026-07-13T00:05:00.000Z",
     "decision": "escalate",
     "reason": "escalate_condition_matched",
     "user_id": "req_owner",
@@ -236,20 +226,18 @@
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "funnelops-test",
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key-v03",
-     "value": "jTAVVt8pktUxMWkOtVXVAJabc_3C-lvXNMM9tw5EOxtt1ghN1gC812P82_SwAMXbsKVdCIkXcJXJimvTpsEXDw"
-    }
+    "signature": "pGuaf4BOVSg2BSnnlOHX7fdHy_fmr8umv_lzay-PfpazrF9j5egFLbZknsEVWSu15c_nLzIOxJAfIR5-CM4KCw",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   },
   {
    "name": "candidate_screen_escalate_context_missing",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_valid_escalate_missing",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:06:00Z",
+    "issued_at": "2026-07-13T00:06:00.000Z",
     "decision": "escalate",
     "reason": "context_field_missing",
     "user_id": "req_owner",
@@ -271,20 +259,18 @@
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "funnelops-test",
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key-v03",
-     "value": "eQBl7LejTbGjd36OfuwuhSeTs_INX58fxtCpO0gQ8PAR13QP7zjzfUSqbnCPbjRpcUlHQNMtzpymV3Y0_kmlDQ"
-    }
+    "signature": "rHK-2yCFv5w3bH2lkiRzAy6aX6H6dDGJTnEdSRKW2oF7IRPso4HP50_XkT_oAjrhvE_VXLo_5XBpfd7-t4RFAg",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   },
   {
    "name": "candidate_review_replaces_confirm",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_valid_review",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:07:00Z",
+    "issued_at": "2026-07-13T00:07:00.000Z",
     "decision": "allow",
     "reason": "authorization_granted_action_active",
     "user_id": "reviewer_opaque",
@@ -305,20 +291,18 @@
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "funnelops-test",
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key-v03",
-     "value": "-Xa3uH2WOEtvmd6OefmXihIGStg5cQNGnzwKzGj-aZSll11q9XuNu_avE7j48Tpz2py0vOWEBMvW5Q4bWARLBQ"
-    }
+    "signature": "M3rfaEwUdlrWYh2RWUAwMvAGE9-uSBcn5iN_jUKYAdxSoJ_ehWu8eCP627Wg60JDIyuc-vBN4W3F2iVw8YhwDw",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   },
   {
    "name": "adverse_action_issue",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_valid_letter",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:08:00Z",
+    "issued_at": "2026-07-13T00:08:00.000Z",
     "decision": "allow",
     "reason": "authorization_granted_action_active",
     "user_id": "ops_user",
@@ -336,20 +320,18 @@
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "funnelops-test",
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key-v03",
-     "value": "Ly9U0ACktp-_HPws3aKu73C8rmKHopge_joLHTBl3LB-bBIMN9U-BBEaPQxx6GEvzCpw67JhS1XUUgdeYCzVCw"
-    }
+    "signature": "F5fyZG1hJBbRxh4Mmvr9Pji9KwQidfwDcHhukGw2nJY2PmvHvxPOGaoytmR7t8Oi-JCg2_K2QDD0bm0fQxZ2Cg",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   },
   {
    "name": "audit_export",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_valid_audit",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:09:00Z",
+    "issued_at": "2026-07-13T00:09:00.000Z",
     "decision": "allow",
     "reason": "authorization_granted_action_active",
     "user_id": "ops_user",
@@ -364,20 +346,18 @@
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "funnelops-test",
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key-v03",
-     "value": "BLEU1l7krQyA3U0ba8EfQ-Pa0W9l-1N_zSRcmFpojLjRdpLCBqfevlxo3CVzTDOWRoy8FatKZN5LKwVaiQzaAA"
-    }
+    "signature": "VeW7HbPfyAQmFmncnWjbRJ5iPfGpI6Ch9XcWOMOG-xf2pou15t_37gLeZ8zvUxw53xoX7ppkqAN9GKCZtrrRDQ",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   },
   {
    "name": "authorization_create",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_valid_auth_create",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:10:00Z",
+    "issued_at": "2026-07-13T00:10:00.000Z",
     "decision": "authorization_granted",
     "reason": "authorization_created",
     "user_id": "policy_admin",
@@ -390,23 +370,21 @@
       "digest": "sha256:policy_v1"
      }
     },
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key-v03",
-     "value": "VfH7BLCIpQjMHAl1xi2cor7IhZWg6YNLkB8QrsQzZBPviUCR0zvgO2xSvIkihCpBD9gLlSVu4BdqmtSGhOMMDQ"
-    },
+    "signature": "iJ5oocRIh7zAm9-Ww-2vrZk9FYzIMU6C9zwEMoShWV4Cq8fZ_2tv0PSMGesPpfb4AtffohMY6tOQR19DUIcKDQ",
     "authorization_id": "auth_policy_v1",
     "engine_version": "profile-vector-0.3",
-    "event": "authorization.create"
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   },
   {
    "name": "authorization_revoke",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_valid_auth_revoke",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:11:00Z",
+    "issued_at": "2026-07-13T00:11:00.000Z",
     "decision": "authorization_revoked",
     "reason": "superseded",
     "user_id": "policy_admin",
@@ -416,14 +394,12 @@
      "revoked_by": "superseded",
      "superseded_by": "auth_policy_v1"
     },
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key-v03",
-     "value": "Gsq7jbE14flGG2MXbPZ6bjCA5k4i9zBktjg4BeBAsqTZyWOp-WZCOeJgQP2KZtnKp57hgndXwlBATCK1XR41Bg"
-    },
+    "signature": "_YgPmbC6_YBO2AwC8jvwz7g-b6m3w17f2D7GXz7E6JfdPKUHI7TrjwYUgxl2LY9963uAUkJTNsT7TKrAXy8ABg",
     "authorization_id": "auth_policy_v0",
     "engine_version": "profile-vector-0.3",
-    "event": "authorization.revoke"
+    "event": "authorization.revoke",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   }
  ],
@@ -432,10 +408,10 @@
    "name": "vocabulary_mispairing",
    "reason": "vocabulary_mispairing",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_invalid_vocab",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:12:00Z",
+    "issued_at": "2026-07-13T00:12:00.000Z",
     "decision": "allow",
     "reason": "escalate_condition_matched",
     "user_id": "req_owner",
@@ -454,22 +430,20 @@
      "detail_code": "letter_issued"
     },
     "authorization_id": "auth_policy_v1",
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key-v03",
-     "value": "ey701aLZ_QhDB5kZFQvtu6bpnoaj4XnDdXGQp6UYDonXRr8XCikk7wA_wK3FJOnQHyu6M9z9eHA88HFeAzcgDA"
-    },
-    "engine_version": "profile-vector-0.3"
+    "signature": "MfmY4dukyDmMGi_PCbVqI_iDtMqehwmNq3CGZ2Ah0itlqqPcgYidh3ewzep7upuPc8hhMjt8LxgSZUP4Hhu9Aw",
+    "engine_version": "profile-vector-0.3",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   },
   {
    "name": "missing_policy_eval_on_knockout",
    "reason": "missing_policy_eval",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_invalid_missing_policy_eval",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:13:00Z",
+    "issued_at": "2026-07-13T00:13:00.000Z",
     "decision": "deny",
     "reason": "deny_condition_matched",
     "user_id": "req_owner",
@@ -493,22 +467,20 @@
      "tier": "deny"
     },
     "authorization_id": "auth_policy_v1",
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key-v03",
-     "value": "3KOJcp9s2vbP74GxPW81uB3CJ_vMJiwJCPkCLaTfe63N9f4IMNDl5u2gUrKDUnUVvNiImnuhJOGiICdu4_mOCw"
-    },
-    "engine_version": "profile-vector-0.3"
+    "signature": "ThqpFcf8pq2yy58pr3ysNphTxFHsXFaMCFqjS07wiMXzUxym9fp-1bupIuBRfm90d2j8uaz9eDRQYZdBgkqRDg",
+    "engine_version": "profile-vector-0.3",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   },
   {
    "name": "missing_replaces_receipt_on_review",
    "reason": "missing_replaces_receipt",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_invalid_missing_replaces",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:14:00Z",
+    "issued_at": "2026-07-13T00:14:00.000Z",
     "decision": "allow",
     "reason": "authorization_granted_action_active",
     "user_id": "reviewer_opaque",
@@ -527,22 +499,20 @@
      "review_decision": "advance"
     },
     "authorization_id": "auth_policy_v1",
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key-v03",
-     "value": "6bRQo2q0c4lu-SvsweHFaHko3opkcSe3VAhIRGAOfrugg8s7bFbFq5ekSx468AXd7Qfnh0QVaixaP9DS4vrbBA"
-    },
-    "engine_version": "profile-vector-0.3"
+    "signature": "s-b3uk58SDpUXKTgIzvra1Frhht3c69BpQAVW_dFPePpddiMGji1mmBjXHoo52OijjXmYmXTvaoDMQPJwUMTCg",
+    "engine_version": "profile-vector-0.3",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   },
   {
    "name": "float_in_context",
    "reason": "float_in_context",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_invalid_float",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:15:00Z",
+    "issued_at": "2026-07-13T00:15:00.000Z",
     "decision": "allow",
     "reason": "authorization_granted_action_active",
     "user_id": "req_owner",
@@ -563,22 +533,20 @@
      "tier": "advance"
     },
     "authorization_id": "auth_policy_v1",
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key",
-     "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "engine_version": "profile-vector-0.3"
+    "signature": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "engine_version": "profile-vector-0.3",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   },
   {
    "name": "pii_in_context",
    "reason": "pii_in_context",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_invalid_pii",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:16:00Z",
+    "issued_at": "2026-07-13T00:16:00.000Z",
     "decision": "allow",
     "reason": "authorization_granted_action_active",
     "user_id": "req_owner",
@@ -599,22 +567,20 @@
      "tier": "advance"
     },
     "authorization_id": "auth_policy_v1",
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key-v03",
-     "value": "oHgQLVusREHXBDAWgytZqAMaHleN_pLC43OMQAygTlb9HxY4aX8NkEMahRzeUS118ZOE42RQUJpVjjCaiEB0BQ"
-    },
-    "engine_version": "profile-vector-0.3"
+    "signature": "wDPXv8h0rDxeXYAN0EFwBNi2O1LN0jWwh3Iu_SZapMmGmQw_wqT2xvvOwpHsgyGnUWZSZTAHONofCM06w_3LCA",
+    "engine_version": "profile-vector-0.3",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   },
   {
    "name": "broken_replaces_chain",
    "reason": "broken_replaces_chain",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_invalid_broken_chain",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:17:00Z",
+    "issued_at": "2026-07-13T00:17:00.000Z",
     "decision": "deny",
     "reason": "deny_condition_matched",
     "user_id": "reviewer_opaque",
@@ -634,22 +600,20 @@
      "review_decision": "reject"
     },
     "authorization_id": "auth_policy_v1",
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key-v03",
-     "value": "U_YRsY2jLd0R31XXSKWh-moxFEbf2IDnUPe2b-2xykCloYcIvtqOQ1hd98pSGWRCbJtIowhue5t7mLijQ-hxCQ"
-    },
-    "engine_version": "profile-vector-0.3"
+    "signature": "JDP4rsh7h90KTrDjP5rd54wyreOTyCWCcARoxvCboQaKaxwjQxInw22bmkL5IHf03MrZu0P1_Hp8H0_tjN9DAw",
+    "engine_version": "profile-vector-0.3",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   },
   {
    "name": "provenance_gate_violation",
    "reason": "provenance_gate_violation",
    "receipt": {
-    "version": "1.0",
+    "schema_version": "3",
     "receipt_id": "rcp_invalid_provenance",
     "workspace_id": "ws_test",
-    "issued_at": "2026-07-13T00:18:00Z",
+    "issued_at": "2026-07-13T00:18:00.000Z",
     "decision": "deny",
     "reason": "deny_condition_matched",
     "user_id": "req_owner",
@@ -687,12 +651,10 @@
      },
      "field_value": "deny"
     },
-    "signature": {
-     "alg": "Ed25519",
-     "key_id": "test-key-v03",
-     "value": "xS_sVGT7N9UAHEe_4jtrKxyuy5CVYNw8aLoX2rBIcDVsBAsuGjTPEnXTP7jCbRUsKm8bpB-okOdG_g3r7PWWDQ"
-    },
-    "engine_version": "profile-vector-0.3"
+    "signature": "ET22g64-m3ELW75wyU13YbY69JOx4lI4fWMsOvrpIK3E5sNrNMrfCKy8_q4qyBuLdsrOb9CgGRinF4dB-VfvCw",
+    "engine_version": "profile-vector-0.3",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
    }
   }
  ],
@@ -703,7 +665,7 @@
     "key_id": "test-key-v03",
     "alg": "Ed25519",
     "public_key": "Yp47bfR7x0v_2-griAApGZ5_tA6-3QRTHvTf7ykUfAw",
-    "active_from": "2026-01-01T00:00:00Z",
+    "active_from": "2026-01-01T00:00:00.000Z",
     "active_until": null
    }
   ]

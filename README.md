@@ -1,8 +1,8 @@
 # Screening Decisions Profile
 
-A **profile** of the [Allowly Receipt Format](https://github.com/Allowly-AI/allowly-receipt-format) (v1.0.0, wire version `"1.0"`) for employment screening decisions: automated knockouts, tier assignments, human reviews and overrides, corrections, adverse-action issuance, and audit exports.
+A **profile** of the [Allowly Receipt Format](https://github.com/Allowly-AI/allowly-receipt-format) (wire version `"3"`) for employment screening decisions: automated knockouts, tier assignments, human reviews and overrides, corrections, adverse-action issuance, and audit exports.
 
-**Status: Draft (v0.2).** The profile adds **no top-level fields** — everything lives in the base format's designated surfaces (`action`/`reason` vocabularies, `resource`, `context`). Profile receipts therefore verify with the stock base-format verifiers today, unchanged.
+**Status: Draft (v0.4.0).** The profile adds **no top-level fields** — everything lives in the base format's designated surfaces (`action`/`reason` vocabularies, `resource`, `context`). Profile receipts therefore verify with the stock base-format verifiers today, unchanged.
 
 - Spec text: [`spec/screening-decisions-profile.md`](./spec/screening-decisions-profile.md) (CC BY 4.0)
 - Code (future validators, vectors generator): Apache 2.0

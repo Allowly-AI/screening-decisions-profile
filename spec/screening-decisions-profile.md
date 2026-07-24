@@ -1,7 +1,7 @@
-# Screening Decisions Profile — v0.2 (Draft)
-**A profile of the Allowly Receipt Format v1.0.0 (wire version "1.0") for employment screening decisions.**
+# Screening Decisions Profile — v0.4.0 (Draft)
+**A profile of the Allowly Receipt Format (wire version "3") for employment screening decisions.**
 
-Status: **Draft.** Aligned to the published base specification at https://github.com/Allowly-AI/allowly-receipt-format (spec/receipt-format.md, 1.0.0 Stable). License: profile text **CC BY 4.0**; schemas and validators **Apache 2.0** (matching the base repo). Editor: FunnelOps LLC. Contributions by pull request. "Allowly" is a trademark; see §11.
+Status: **Draft.** Aligned to the published base specification at https://github.com/Allowly-AI/allowly-receipt-format (spec/receipt-format.md, wire version 3, Stable). License: profile text **CC BY 4.0**; schemas and validators **Apache 2.0** (matching the base repo). Editor: FunnelOps LLC. Contributions by pull request. "Allowly" is a trademark; see §11.
 
 ## 1 · Purpose & design constraint
 This profile maps employment-screening decisions — automated knockouts, tier assignments, human reviews and overrides, corrections, adverse-action issuance, audit exports — onto unmodified base-format receipts. The base format's §3.1 rule is absolute: **verifiers reject unknown top-level fields**, so this profile adds none. Everything profile-specific lives in the fields the base format designates as issuer/customer-defined: the `action` and `reason` vocabularies, `resource`, `agent_id`/`user_id` semantics, and the `context` object. A profile receipt is therefore verifiable by any stock base-format verifier today; profile conformance is an additional, layered check (§9).
@@ -66,13 +66,13 @@ Profile verification = (1) base §7 verification (signature over base §4 canoni
 Additional actions MUST be prefixed `x_<vendor>.` ; additional context keys MUST be prefixed `x_`. Extensions MUST NOT weaken any MUST above and MUST respect base canonicalization (no floats, I-JSON integer bounds).
 
 ## 11 · Versioning, IP, marks
-Profile versions follow semver, independent of the base wire version; this profile requires only wire `"1.0"` — **no base-format changes and no new top-level fields are needed to implement it today.** Profile text CC BY 4.0. Conformance claims ("implements the Screening Decisions Profile v0.x") are free for conformant implementations; use of the Allowly name beyond factual reference follows the Allowly trademark policy.
+Profile versions follow semver, independent of the base wire version; this profile requires only wire `"3"` (`schema_version: "3"`) — **no base-format changes and no new top-level fields are needed to implement it today.** Profile text CC BY 4.0. Conformance claims ("implements the Screening Decisions Profile v0.x") are free for conformant implementations; use of the Allowly name beyond factual reference follows the Allowly trademark policy.
 
 ## 12 · Examples (fixture-aligned; envelope fields per base §3)
 **A — knockout (fixture c008):**
 ```json
 {
-  "version": "1.0",
+  "schema_version": "3",
   "receipt_id": "rcp_01K2SCRN00000000000000C008",
   "workspace_id": "ws_01HXFUNNELOPS0000000000000",
   "issued_at": "2026-09-14T17:03:22.481Z",
@@ -91,13 +91,15 @@ Profile versions follow semver, independent of the base wire version; this profi
   "authorization_id": "auth_01K2POLHOURLYOPS10000000000",
   "engine_version": "funnelops-2026.09.1",
   "policy_eval": { "matched_condition": { "field": "work_authorization", "op": "eq", "value": true }, "field_value": false },
-  "signature": { "alg": "Ed25519", "key_id": "…", "value": "…" }
+  "alg": "Ed25519",
+  "key_id": "…",
+  "signature": "…"
 }
 ```
 **B — confirm and human resolution (fixture c004):** first a `candidate.screen` receipt with `decision: "confirm"`, `reason: "confirm_threshold"`, `context.criteria_failed: ["cr_experience"]`; then:
 ```json
 {
-  "version": "1.0",
+  "schema_version": "3",
   "receipt_id": "rcp_01K2REVW00000000000000C004",
   "workspace_id": "ws_01HXFUNNELOPS0000000000000",
   "issued_at": "2026-09-15T09:41:02.007Z",
@@ -115,7 +117,9 @@ Profile versions follow semver, independent of the base wire version; this profi
   },
   "authorization_id": "auth_01K2POLHOURLYOPS10000000000",
   "engine_version": "funnelops-2026.09.1",
-  "signature": { "alg": "Ed25519", "key_id": "…", "value": "…" }
+  "alg": "Ed25519",
+  "key_id": "…",
+  "signature": "…"
 }
 ```
 **C — correction chain:** the customer resubmits c004 with corrected `warehouse_years: 3` under the same uuid; the resulting `candidate.screen` receipt (`decision: "allow"`, `reason: "criteria_met"`) carries the new `payload_digest` and `context.replaces_receipt` naming the review receipt above. The record shows the wrong value, who decided on it, the correction, and the new outcome — nothing erased.

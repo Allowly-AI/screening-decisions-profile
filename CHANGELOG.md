@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.4.0 (2026-07-23) — Base wire version 3
+- Realigned to the base specification at wire version 3 (`schema_version: "3"`): the wire field renamed from `version`, and `alg`/`key_id` moved from the `signature` object to top level with `signature` now a flat base64url string (both are inside the signed payload; only `signature` itself is excluded from canonicalization). Timestamps are UTC millisecond precision.
+- Spec masthead, §11, §12 examples, and README updated from wire `"1.0"` / base 1.0.0 to wire `"3"`; fixed stale masthead version (said v0.2 while changelog was at v0.3.3).
+- All 19 vectors migrated to the wire-3 envelope and re-signed (`vectors/resign.py` updated for the flat signature and ms-precision key `active_from`); `validators/check_profile.py` unchanged and green against verifier 3.0.0 (`--vectors` passes 12 valid / 7 invalid as expected).
+- `requirements.txt` verifier pin moved from the base v1.0.5 tag to v3.0.0.
+
 ## v0.3.3 (2026-07-15) — Operator attribution
 - §7: `on_behalf_of {client, workspace}` + `operator` adopted as profile-standard OPTIONAL context keys on all actions (who the decision was made for / who operated the system). No `x_` prefix; minimization rule unaffected. Producer support shipped in FunnelOps K6 (live-verified in a signed staging receipt).
 - (Bookkeeping: v0.3.2 was the deny_when reason-vocabulary alignment, R3 merge e9a51cc — entry was missing here.)
