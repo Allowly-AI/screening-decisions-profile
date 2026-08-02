@@ -1,10 +1,10 @@
 {
- "profile_version": "0.3.0",
+ "profile_version": "0.5.0",
  "valid": [
   {
    "name": "candidate_screen_advance",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_valid_advance",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:00:00.000Z",
@@ -38,7 +38,7 @@
      "matched_condition": null,
      "field_value": null
     },
-    "signature": "W67H2Uzv5Ocd_5jv2YAspJutyvJFezskactDbF6NQ7xEocjmrvlG8QPckC9PcFH9EtufH_fz5smXfe3Tk_EwCQ",
+    "signature": "Tkk-APxPFZ4rITaQHe5pFqwWSXjcGja2EUJ7T14InAkvS-zmVfQKQ0Dz8jDvvJH979hQNDIuHFrGeF2Aj9tRAA",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -46,7 +46,7 @@
   {
    "name": "candidate_screen_knockout",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_valid_knockout",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:01:00.000Z",
@@ -88,7 +88,7 @@
      },
      "field_value": "deny"
     },
-    "signature": "DfDMlXqFmL2lbYBLcWFK5H_qvwbJ1tskfzQcuPjL9KIAZEWk2lmDZHC5k4fjhAKzilITS9LiRedu3UgjreYSDw",
+    "signature": "ECNJp3P3R1oO5M6emvaeQbuAF3GrIkcSX8pwUndKCIkUcDRLzvT-OAw_4TT5Lg8NA4TJff-JDGzbrJA7KhTyDg",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -96,7 +96,7 @@
   {
    "name": "candidate_screen_confirm",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_valid_confirm",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:02:00.000Z",
@@ -128,7 +128,7 @@
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "funnelops-test",
-    "signature": "HI-lm00CjduANPuTdb11PqpV2aT9qdBKUx1_QxgMFY1BBYMXQirBiYdAmvK1rYon5XodCrd-J_NXpbG-UCAbCw",
+    "signature": "IL1IQ_6RJDdbJVcVM-DJloohmJ2zce_n_DO3f2TBGlsxv0agW4JljccBz4ywTH2iobbRzvvmd7YKJd5vP4pqAw",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -136,7 +136,7 @@
   {
    "name": "candidate_screen_escalate_criteria",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_valid_escalate_criteria",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:03:00.000Z",
@@ -161,7 +161,7 @@
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "funnelops-test",
-    "signature": "K1uE6m2itxAF5GMgZxdrh16XNkSwCqEr-SfQ8Z3YKyYNa8Q8TXr-oGoRQw_L6EO41TOKIyrB70Tut9t39hasCg",
+    "signature": "dedGbE3mPx9I_Ku-PxaSiBttzHw0WZlhDug8ZA0d9WtJAxS62Ed412wQbsICazR5BSHc1TOaBS_YexVxlEHPAg",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -169,7 +169,7 @@
   {
    "name": "candidate_screen_escalate_parse_warning",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_valid_escalate_parse",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:04:00.000Z",
@@ -193,7 +193,7 @@
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "funnelops-test",
-    "signature": "Odpito_ClzBeB8DAt9Qr5EyRlREh4rhTZUJp71UPesFUqqMfMsXRTHCSwhUIu_d6lk7kvw0vwbMi80YDcR2pBw",
+    "signature": "evT2iDnGkjCaCUPbaGbneqk-OS0rCF-7-o6JWeaLtcnVt1Jo52wIXu351nxu2GCgb1NLgv_ubqpoIaGm-uM2Cw",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -201,7 +201,7 @@
   {
    "name": "candidate_screen_escalate_accommodation",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_valid_escalate_accommodation",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:05:00.000Z",
@@ -226,7 +226,7 @@
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "funnelops-test",
-    "signature": "pGuaf4BOVSg2BSnnlOHX7fdHy_fmr8umv_lzay-PfpazrF9j5egFLbZknsEVWSu15c_nLzIOxJAfIR5-CM4KCw",
+    "signature": "zb6KYZMSipkjXtaFsLNatnvFGGK6Kbj9FmlwW50w5h1Js_dPYw98ekWxSZTHsbG-F3HH3kMjgLexZJoVV0tDDQ",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -234,7 +234,7 @@
   {
    "name": "candidate_screen_escalate_context_missing",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_valid_escalate_missing",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:06:00.000Z",
@@ -259,7 +259,7 @@
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "funnelops-test",
-    "signature": "rHK-2yCFv5w3bH2lkiRzAy6aX6H6dDGJTnEdSRKW2oF7IRPso4HP50_XkT_oAjrhvE_VXLo_5XBpfd7-t4RFAg",
+    "signature": "Gyi1PfpmqTjM1K556wTL9piL_OTCYDdAjcOhez4MXZ0pnW2H0CeOeKzvzDzO_XhREu4GeArcbh_SQ3Cd6ndJAw",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -267,7 +267,7 @@
   {
    "name": "candidate_review_replaces_confirm",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_valid_review",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:07:00.000Z",
@@ -291,7 +291,7 @@
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "funnelops-test",
-    "signature": "M3rfaEwUdlrWYh2RWUAwMvAGE9-uSBcn5iN_jUKYAdxSoJ_ehWu8eCP627Wg60JDIyuc-vBN4W3F2iVw8YhwDw",
+    "signature": "Uuly5hFLWQPBFNG3d64X2ylzYKByLjcOIDrhVu-JlpUAP3r6ns2It4T22F7yv4yf_UJuvzd7todbDEikdecBCw",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -299,7 +299,7 @@
   {
    "name": "adverse_action_issue",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_valid_letter",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:08:00.000Z",
@@ -320,7 +320,7 @@
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "funnelops-test",
-    "signature": "F5fyZG1hJBbRxh4Mmvr9Pji9KwQidfwDcHhukGw2nJY2PmvHvxPOGaoytmR7t8Oi-JCg2_K2QDD0bm0fQxZ2Cg",
+    "signature": "fT7Qg1SWNbjlqobD7U8-syYMpvMcWrlL9oE9a_4nacHktdGeYA5tsi2XW3uzArqt17YGR5wdwJFhXqRf9zKUCg",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -328,7 +328,7 @@
   {
    "name": "audit_export",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_valid_audit",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:09:00.000Z",
@@ -346,7 +346,7 @@
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "funnelops-test",
-    "signature": "VeW7HbPfyAQmFmncnWjbRJ5iPfGpI6Ch9XcWOMOG-xf2pou15t_37gLeZ8zvUxw53xoX7ppkqAN9GKCZtrrRDQ",
+    "signature": "0GFu12cuRvSOb0IOwKHGhXj6-4qLBeRLBLEkbMpe7-2p-Gui0l3cqjCQ8H7SW6BmMDatuF00QcPrR5oppYpSDg",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -354,7 +354,7 @@
   {
    "name": "authorization_create",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_valid_auth_create",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:10:00.000Z",
@@ -370,7 +370,7 @@
       "digest": "sha256:policy_v1"
      }
     },
-    "signature": "iJ5oocRIh7zAm9-Ww-2vrZk9FYzIMU6C9zwEMoShWV4Cq8fZ_2tv0PSMGesPpfb4AtffohMY6tOQR19DUIcKDQ",
+    "signature": "Xo-SqXCFkS0a4uCytZrUm5e7TdByToDTD_t1y8hRq-5_LLuSpszO8vyAgJkVJHWSJ90uvW2EVhHFpt3YNgDoAg",
     "authorization_id": "auth_policy_v1",
     "engine_version": "profile-vector-0.3",
     "event": "authorization.create",
@@ -381,7 +381,7 @@
   {
    "name": "authorization_revoke",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_valid_auth_revoke",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:11:00.000Z",
@@ -394,7 +394,7 @@
      "revoked_by": "superseded",
      "superseded_by": "auth_policy_v1"
     },
-    "signature": "_YgPmbC6_YBO2AwC8jvwz7g-b6m3w17f2D7GXz7E6JfdPKUHI7TrjwYUgxl2LY9963uAUkJTNsT7TKrAXy8ABg",
+    "signature": "5AYa35goQb5ZvLmL4d-Gd6vVrSKF8qOgJLKkIMGyE0wImQCBUd9k73g6xq6br4U-r9yVoORL8032-ppoJz9IAw",
     "authorization_id": "auth_policy_v0",
     "engine_version": "profile-vector-0.3",
     "event": "authorization.revoke",
@@ -408,7 +408,7 @@
    "name": "vocabulary_mispairing",
    "reason": "vocabulary_mispairing",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_invalid_vocab",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:12:00.000Z",
@@ -430,7 +430,7 @@
      "detail_code": "letter_issued"
     },
     "authorization_id": "auth_policy_v1",
-    "signature": "MfmY4dukyDmMGi_PCbVqI_iDtMqehwmNq3CGZ2Ah0itlqqPcgYidh3ewzep7upuPc8hhMjt8LxgSZUP4Hhu9Aw",
+    "signature": "YsKA7t-IozzYOTe2HG5cAbRVWXRZpyTIC_btJ-nKR7wqoMhQ3lFzS_J5caAe2jUui1nbCEVazxVHWuBSuR_hAw",
     "engine_version": "profile-vector-0.3",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
@@ -440,7 +440,7 @@
    "name": "missing_policy_eval_on_knockout",
    "reason": "missing_policy_eval",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_invalid_missing_policy_eval",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:13:00.000Z",
@@ -467,7 +467,7 @@
      "tier": "deny"
     },
     "authorization_id": "auth_policy_v1",
-    "signature": "ThqpFcf8pq2yy58pr3ysNphTxFHsXFaMCFqjS07wiMXzUxym9fp-1bupIuBRfm90d2j8uaz9eDRQYZdBgkqRDg",
+    "signature": "6c8zUw_bneaqf8hjm1XURpS64137TqDi8AX0sK5PcB_bPTXmcGZDSavZgtgw1GoYnE0Aj-WgXrvTdGByTjJ8Bw",
     "engine_version": "profile-vector-0.3",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
@@ -477,7 +477,7 @@
    "name": "missing_replaces_receipt_on_review",
    "reason": "missing_replaces_receipt",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_invalid_missing_replaces",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:14:00.000Z",
@@ -499,7 +499,7 @@
      "review_decision": "advance"
     },
     "authorization_id": "auth_policy_v1",
-    "signature": "s-b3uk58SDpUXKTgIzvra1Frhht3c69BpQAVW_dFPePpddiMGji1mmBjXHoo52OijjXmYmXTvaoDMQPJwUMTCg",
+    "signature": "hSfqujF2q2BRH2DY2JrQaVfFkzaMP_DQFB3Hbf7IQS9fr9vkd2KroekyU2q6Va8Kx19-GuPR4CqEVyKyrm-qAw",
     "engine_version": "profile-vector-0.3",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
@@ -509,7 +509,7 @@
    "name": "float_in_context",
    "reason": "float_in_context",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_invalid_float",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:15:00.000Z",
@@ -543,7 +543,7 @@
    "name": "pii_in_context",
    "reason": "pii_in_context",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_invalid_pii",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:16:00.000Z",
@@ -567,7 +567,7 @@
      "tier": "advance"
     },
     "authorization_id": "auth_policy_v1",
-    "signature": "wDPXv8h0rDxeXYAN0EFwBNi2O1LN0jWwh3Iu_SZapMmGmQw_wqT2xvvOwpHsgyGnUWZSZTAHONofCM06w_3LCA",
+    "signature": "od_pfdCaiJwerurrvdwMuJ5Sq01xyUYvgDpeayHyrDUj7hu-WUe3OaHM4MgdMuQ3sK5XDn2yCAQUB9qyZhhCAQ",
     "engine_version": "profile-vector-0.3",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
@@ -577,7 +577,7 @@
    "name": "broken_replaces_chain",
    "reason": "broken_replaces_chain",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_invalid_broken_chain",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:17:00.000Z",
@@ -600,7 +600,7 @@
      "review_decision": "reject"
     },
     "authorization_id": "auth_policy_v1",
-    "signature": "JDP4rsh7h90KTrDjP5rd54wyreOTyCWCcARoxvCboQaKaxwjQxInw22bmkL5IHf03MrZu0P1_Hp8H0_tjN9DAw",
+    "signature": "jksb-Xr8TSP04pbDGzAig07at9jmWbfae7Tl_ctzmCbZ2_9kCC8ky0zZ9rCJvJw8oTAh9yTKDuVG3_lgpOOXCQ",
     "engine_version": "profile-vector-0.3",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
@@ -610,7 +610,7 @@
    "name": "provenance_gate_violation",
    "reason": "provenance_gate_violation",
    "receipt": {
-    "schema_version": "3",
+    "schema_version": "4",
     "receipt_id": "rcp_invalid_provenance",
     "workspace_id": "ws_test",
     "issued_at": "2026-07-13T00:18:00.000Z",
@@ -651,7 +651,7 @@
      },
      "field_value": "deny"
     },
-    "signature": "ET22g64-m3ELW75wyU13YbY69JOx4lI4fWMsOvrpIK3E5sNrNMrfCKy8_q4qyBuLdsrOb9CgGRinF4dB-VfvCw",
+    "signature": "sGQPjR9rrDWfLSqpqkYIhWY7k1eQhxcfayu4YQkEVzbqhNi4-yKF6e45mCCXgg3_8HTRdWTJU8KAkmDi3n4UBA",
     "engine_version": "profile-vector-0.3",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
@@ -665,6 +665,7 @@
     "key_id": "test-key-v03",
     "alg": "Ed25519",
     "public_key": "Yp47bfR7x0v_2-griAApGZ5_tA6-3QRTHvTf7ykUfAw",
+    "public_key_fingerprint": "sha256:a7c835cd79db7a3e89945036817a9917a4d9d591ab67ed8998584d00f2c5781c",
     "active_from": "2026-01-01T00:00:00.000Z",
     "active_until": null
    }

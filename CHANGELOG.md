@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.5.0 (2026-08-01) — Base wire version 4
+- Realigned the profile, verifier pin, examples, and all 19 deterministic vectors to receipt wire version 4.
+- Regenerated every canonicalizable signature with the profile's deterministic signer and added the signing-key fingerprint to the bundled key document.
+- Required caller-trusted workspace and signing-key fingerprints for single-receipt CLI validation; values copied from the receipt bundle are not trust anchors.
+
 ## v0.4.1 (2026-07-23) — §12 examples aligned to v0.3 reason vocabulary
 - §12 examples predated the v0.3 issuer-owned `reason` correction and were rejected by the repo's own validator. Example A: `knockout_failed` → `deny_condition_matched`, `policy_eval` now the issuer's tier-routing condition (§6), context gains `tier`, `knockout` (4-key shape), `fields_supplied_by`. Example B: `review_experience_below_min` → `deny_condition_matched`, context gains `review_decision: "reject"`; prose `confirm_threshold` → `confirm_condition_matched`, `criteria_met` → `authorization_granted_action_active`. Both examples now pass `_profile_check`.
 

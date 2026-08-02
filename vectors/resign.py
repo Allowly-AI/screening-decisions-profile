@@ -19,6 +19,8 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 
 SEED = hashlib.sha256(b"screening-decisions-profile/vectors/v0.3").digest()
 KEY_ID = "test-key-v03"
+PROFILE_VERSION = "0.5.0"
+WIRE_VERSION = "4"
 
 
 def b64u(data: bytes) -> str:
@@ -30,11 +32,13 @@ def main() -> None:
     doc = json.loads(path.read_text())
     private = Ed25519PrivateKey.from_private_bytes(SEED)
     public = private.public_key().public_bytes_raw()
+    doc["profile_version"] = PROFILE_VERSION
 
     signed = skipped = 0
     for item in doc["valid"] + doc["invalid"]:
         receipt = item["receipt"]
-        # wire 3: alg/key_id are top-level and inside the signed payload;
+        receipt["schema_version"] = WIRE_VERSION
+        # Wire 4: alg/key_id are top-level and inside the signed payload;
         # only "signature" itself is excluded from canonicalization.
         receipt["alg"] = "Ed25519"
         receipt["key_id"] = KEY_ID
@@ -54,6 +58,7 @@ def main() -> None:
                 "key_id": KEY_ID,
                 "alg": "Ed25519",
                 "public_key": b64u(public),
+                "public_key_fingerprint": f"sha256:{hashlib.sha256(public).hexdigest()}",
                 "active_from": "2026-01-01T00:00:00.000Z",
                 "active_until": None,
             }

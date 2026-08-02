@@ -1,8 +1,8 @@
 # Screening Decisions Profile
 
-A **profile** of the [Allowly Receipt Format](https://github.com/Allowly-AI/allowly-receipt-format) (wire version `"3"`) for employment screening decisions: automated knockouts, tier assignments, human reviews and overrides, corrections, adverse-action issuance, and audit exports.
+A **profile** of the [Allowly Receipt Format](https://github.com/Allowly-AI/allowly-receipt-format) (wire version `"4"`) for employment screening decisions: automated knockouts, tier assignments, human reviews and overrides, corrections, adverse-action issuance, and audit exports.
 
-**Status: Draft (v0.4.0).** The profile adds **no top-level fields** — everything lives in the base format's designated surfaces (`action`/`reason` vocabularies, `resource`, `context`). Profile receipts therefore verify with the stock base-format verifiers today, unchanged.
+**Status: Draft (v0.5.0).** The profile adds **no top-level fields** — everything lives in the base format's designated surfaces (`action`/`reason` vocabularies, `resource`, `context`). Profile receipts therefore verify with the stock base-format verifiers today, unchanged.
 
 - Spec text: [`spec/screening-decisions-profile.md`](./spec/screening-decisions-profile.md) (CC BY 4.0)
 - Code (future validators, vectors generator): Apache 2.0
@@ -36,8 +36,15 @@ python3 validators/check_profile.py vectors/vectors.json --vectors
 Run it against one receipt JSON:
 
 ```sh
-python3 validators/check_profile.py receipt.json
+python3 validators/check_profile.py receipt.json \
+  --keys keys.json \
+  --workspace-id "$ALLOWLY_WORKSPACE_ID" \
+  --trusted-key-fingerprint "$ALLOWLY_TRUSTED_KEY_FINGERPRINT"
 ```
+
+The workspace ID and key fingerprint must come from caller-trusted
+configuration, not from the receipt or key document being checked. Repeat the
+fingerprint flag for every trusted rotation key that may have signed a receipt.
 
 The validator performs a minimal base-format precheck first, then the profile checks for vocabulary pairings, required context by action, PII-free context, provenance gating, and `replaces_receipt` chains.
 
