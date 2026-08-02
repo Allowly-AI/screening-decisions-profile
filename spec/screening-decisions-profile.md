@@ -1,7 +1,7 @@
-# Screening Decisions Profile — v0.4.0 (Draft)
-**A profile of the Allowly Receipt Format (wire version "3") for employment screening decisions.**
+# Screening Decisions Profile — v0.5.0 (Draft)
+**A profile of the Allowly Receipt Format (wire version "4") for employment screening decisions.**
 
-Status: **Draft.** Aligned to the published base specification at https://github.com/Allowly-AI/allowly-receipt-format (spec/receipt-format.md, wire version 3, Stable). License: profile text **CC BY 4.0**; schemas and validators **Apache 2.0** (matching the base repo). Editor: FunnelOps LLC. Contributions by pull request. "Allowly" is a trademark; see §11.
+Status: **Draft.** Aligned to the published base specification at https://github.com/Allowly-AI/allowly-receipt-format (spec/receipt-format.md, wire version 4, Stable). License: profile text **CC BY 4.0**; schemas and validators **Apache 2.0** (matching the base repo). Editor: FunnelOps LLC. Contributions by pull request. "Allowly" is a trademark; see §11.
 
 ## 1 · Purpose & design constraint
 This profile maps employment-screening decisions — automated knockouts, tier assignments, human reviews and overrides, corrections, adverse-action issuance, audit exports — onto unmodified base-format receipts. The base format's §3.1 rule is absolute: **verifiers reject unknown top-level fields**, so this profile adds none. Everything profile-specific lives in the fields the base format designates as issuer/customer-defined: the `action` and `reason` vocabularies, `resource`, `agent_id`/`user_id` semantics, and the `context` object. A profile receipt is therefore verifiable by any stock base-format verifier today; profile conformance is an additional, layered check (§9).
@@ -60,19 +60,19 @@ The base format validates lineage pointers nowhere — they are "audit convenien
 - Profile Verifiers MUST check: at most one resolver per `confirm` receipt within an export; every `replaces_receipt` target exists in scope; chains are acyclic. A broken chain is reported, not repaired.
 
 ## 9 · Verification & the independence note
-Profile verification = (1) base §7 verification (signature over base §4 canonical bytes, published issuer keys); (2) vocabulary and pairing checks per §§4–7; (3) chain checks per §8. **Format conformance is not attestation independence.** These receipts derive their evidentiary weight from the issuer being operationally independent of the screening system and its customer: an issuer that is the decider signing its own homework produces conformant receipts that prove only self-consistency. Profile Verifiers SHOULD surface the issuer identity (`workspace_id` → published key ownership) and its relationship to the Producer.
+Profile verification = (1) base §7 verification (signature over base §4 canonical bytes, caller-trusted workspace identity and signing-key fingerprint); (2) vocabulary and pairing checks per §§4–7; (3) chain checks per §8. The trusted workspace ID and fingerprints MUST come from verifier configuration, not from the receipt or key document being checked. **Format conformance is not attestation independence.** These receipts derive their evidentiary weight from the issuer being operationally independent of the screening system and its customer: an issuer that is the decider signing its own homework produces conformant receipts that prove only self-consistency. Profile Verifiers SHOULD surface the issuer identity (`workspace_id` → authenticated key ownership) and its relationship to the Producer.
 
 ## 10 · Extensions
 Additional actions MUST be prefixed `x_<vendor>.` ; additional context keys MUST be prefixed `x_`. Extensions MUST NOT weaken any MUST above and MUST respect base canonicalization (no floats, I-JSON integer bounds).
 
 ## 11 · Versioning, IP, marks
-Profile versions follow semver, independent of the base wire version; this profile requires only wire `"3"` (`schema_version: "3"`) — **no base-format changes and no new top-level fields are needed to implement it today.** Profile text CC BY 4.0. Conformance claims ("implements the Screening Decisions Profile v0.x") are free for conformant implementations; use of the Allowly name beyond factual reference follows the Allowly trademark policy.
+Profile versions follow semver, independent of the base wire version; this profile requires only wire `"4"` (`schema_version: "4"`) — **no profile-specific top-level fields are needed to implement it today.** Profile text CC BY 4.0. Conformance claims ("implements the Screening Decisions Profile v0.x") are free for conformant implementations; use of the Allowly name beyond factual reference follows the Allowly trademark policy.
 
 ## 12 · Examples (fixture-aligned; envelope fields per base §3)
 **A — knockout (fixture c008):**
 ```json
 {
-  "schema_version": "3",
+  "schema_version": "4",
   "receipt_id": "rcp_01K2SCRN00000000000000C008",
   "workspace_id": "ws_01HXFUNNELOPS0000000000000",
   "issued_at": "2026-09-14T17:03:22.481Z",
@@ -102,7 +102,7 @@ Profile versions follow semver, independent of the base wire version; this profi
 **B — confirm and human resolution (fixture c004):** first a `candidate.screen` receipt with `decision: "confirm"`, `reason: "confirm_condition_matched"`, `context.tier: "confirm"`, `context.criteria_failed: ["cr_experience"]`; then:
 ```json
 {
-  "schema_version": "3",
+  "schema_version": "4",
   "receipt_id": "rcp_01K2REVW00000000000000C004",
   "workspace_id": "ws_01HXFUNNELOPS0000000000000",
   "issued_at": "2026-09-15T09:41:02.007Z",

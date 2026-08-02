@@ -9,11 +9,20 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
 
-from allowly_receipt_format import VerificationError, load_keys_from_json, verify_receipt
+from allowly_receipt_format import (
+    VerificationError,
+    load_keys_from_json,
+    public_key_fingerprint,
+    verify_receipt,
+)
+
+
+TRUSTED_KEY_FINGERPRINT_RE = re.compile(r"sha256:[0-9a-f]{64}")
 
 PII_KEYS = {
     "address",
@@ -51,8 +60,16 @@ def validate_receipt(
     receipt: dict[str, Any],
     scope: dict[str, dict] | None = None,
     keys: dict[str, Any] | None = None,
+    *,
+    expected_workspace_id: str | None = None,
+    trusted_key_fingerprints: set[str] | frozenset[str] | None = None,
 ) -> str | None:
-    base_error = _base_verify(receipt, keys)
+    base_error = _base_verify(
+        receipt,
+        keys,
+        expected_workspace_id=expected_workspace_id,
+        trusted_key_fingerprints=trusted_key_fingerprints,
+    )
     if base_error is not None:
         return base_error
     profile_error = _profile_check(receipt)
@@ -66,16 +83,32 @@ def validate_receipt(
 def validate_vectors(path: Path) -> list[str]:
     data = json.loads(path.read_text(encoding="utf-8"))
     keys = data["keys"]
+    expected_workspace_id = keys["workspace_id"]
+    trusted_key_fingerprints = {
+        public_key_fingerprint(key) for key in load_keys_from_json(keys)
+    }
     receipts = [item["receipt"] for item in data.get("valid", [])]
     receipts.extend(item["receipt"] for item in data.get("invalid", []))
     scope = {receipt["receipt_id"]: receipt for receipt in receipts}
     failures: list[str] = []
     for item in data.get("valid", []):
-        reason = validate_receipt(item["receipt"], scope, keys)
+        reason = validate_receipt(
+            item["receipt"],
+            scope,
+            keys,
+            expected_workspace_id=expected_workspace_id,
+            trusted_key_fingerprints=trusted_key_fingerprints,
+        )
         if reason is not None:
             failures.append(f"valid {item['name']} failed: {reason}")
     for item in data.get("invalid", []):
-        reason = validate_receipt(item["receipt"], scope, keys)
+        reason = validate_receipt(
+            item["receipt"],
+            scope,
+            keys,
+            expected_workspace_id=expected_workspace_id,
+            trusted_key_fingerprints=trusted_key_fingerprints,
+        )
         if reason != item["reason"]:
             failures.append(
                 f"invalid {item['name']} expected {item['reason']} got {reason or 'pass'}"
@@ -83,14 +116,27 @@ def validate_vectors(path: Path) -> list[str]:
     return failures
 
 
-def _base_verify(receipt: dict[str, Any], keys: dict[str, Any] | None) -> str | None:
+def _base_verify(
+    receipt: dict[str, Any],
+    keys: dict[str, Any] | None,
+    *,
+    expected_workspace_id: str | None,
+    trusted_key_fingerprints: set[str] | frozenset[str] | None,
+) -> str | None:
     if keys is None:
         return "base_keys_required"
+    if not expected_workspace_id:
+        return "base_workspace_required"
+    if not trusted_key_fingerprints:
+        return "base_key_fingerprint_required"
+    if keys.get("workspace_id") != expected_workspace_id:
+        return "base_workspace_mismatch"
     try:
         verify_receipt(
             receipt,
             load_keys_from_json(keys),
-            expected_workspace_id=keys.get("workspace_id"),
+            expected_workspace_id=expected_workspace_id,
+            trusted_key_fingerprints=trusted_key_fingerprints,
         )
     except VerificationError as exc:
         if "non-integer numbers" in str(exc):
@@ -221,6 +267,16 @@ def main(argv: list[str] | None = None) -> int:
         help="issuer keys.json (dashboard download, or the public "
         "GET /v1/workspaces/{workspace_id}/keys endpoint)",
     )
+    parser.add_argument(
+        "--workspace-id",
+        help="caller-trusted workspace ID; must match keys.json and the receipt",
+    )
+    parser.add_argument(
+        "--trusted-key-fingerprint",
+        action="append",
+        default=[],
+        help="caller-trusted sha256 fingerprint; repeat for trusted rotation keys",
+    )
     args = parser.parse_args(argv)
     path = Path(args.receipt)
     if args.vectors:
@@ -231,12 +287,28 @@ def main(argv: list[str] | None = None) -> int:
             return 1
         print("profile vectors passed")
         return 0
+    if not args.workspace_id:
+        parser.error("--workspace-id is required outside --vectors mode")
+    if not args.trusted_key_fingerprint:
+        parser.error("at least one --trusted-key-fingerprint is required outside --vectors mode")
+    if any(
+        TRUSTED_KEY_FINGERPRINT_RE.fullmatch(value) is None
+        for value in args.trusted_key_fingerprint
+    ):
+        parser.error(
+            "--trusted-key-fingerprint must be sha256: followed by 64 lowercase hex characters"
+        )
     doc = json.loads(path.read_text(encoding="utf-8"))
     receipt = doc.get("receipt", doc)
     keys = doc.get("keys")
     if args.keys:
         keys = json.loads(Path(args.keys).read_text(encoding="utf-8"))
-    reason = validate_receipt(receipt, keys=keys)
+    reason = validate_receipt(
+        receipt,
+        keys=keys,
+        expected_workspace_id=args.workspace_id,
+        trusted_key_fingerprints=set(args.trusted_key_fingerprint),
+    )
     if reason is not None:
         print(reason)
         return 1
