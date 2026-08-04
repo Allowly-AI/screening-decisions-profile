@@ -1,1 +1,1 @@
-allowly-receipt-format==4.0.0
+allowly-receipt-format==4.0.1
