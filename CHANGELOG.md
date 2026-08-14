@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+- Validators: added `validators/check_profile.mjs`, a second implementation of the same two layers as a dependency-free ES module that runs unmodified in a modern browser and in Node 20+ (WebCrypto Ed25519). It carries its own base-format precheck for wire `"4"` — base §4 canonicalization (UTF-16 code-unit key sort, I-JSON integers only, `signature` excluded from the signed payload), signature verification against a caller-supplied key document, and the same caller-trusted workspace and key-fingerprint rules — then the full profile layer. `verifyReceipt(receipt, {keys, scope})` returns `{base, profile}`, each layer reporting the first failing check, with error codes identical to the Python validator's.
+- Validators: added `validators/parity.test.mjs`, which runs every bundled vector through both implementations and through the classification each vector declares, failing on any difference in outcome, error code, or non-failing notes. CI runs it after the Python vector run, in the same job.
 - Validator: tightened profile-only checks for `sha256:` digest prefixes, criteria and `decision_refs` list shapes, issuer deny `policy_eval`, review-decision/top-level decision agreement, policy identity shape, `full_name` PII keys, and unprefixed extension context keys (standard optional keys remain allowed). The single-receipt CLI now accepts `--scope` for §8 chain checks and reports `note:incomplete_chain` when a standalone receipt names an out-of-scope predecessor.
 
 ## v0.6.0 (2026-08-13) — Checkable decision, provenance, and chain rules
