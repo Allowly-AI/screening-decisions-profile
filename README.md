@@ -1,0 +1,55 @@
+# Screening Decisions Profile
+
+A **profile** of the [Allowly Receipt Format](https://github.com/Allowly-AI/allowly-receipt-format) (wire version `"4"`) for employment screening decisions: automated knockouts, tier assignments, human reviews and overrides, corrections, adverse-action issuance, and audit exports.
+
+**Status: Draft (v0.6.0).** The profile adds **no top-level fields** — everything lives in the base format's designated surfaces (`action`/`reason` vocabularies, `resource`, `context`). Profile receipts therefore verify with the stock base-format verifiers today, unchanged.
+
+- Spec text: [`spec/screening-decisions-profile.md`](./spec/screening-decisions-profile.md) (CC BY 4.0)
+- Code (future validators, vectors generator): Apache 2.0
+- Where this profile and the base specification conflict, the base specification governs.
+
+## Relationship to the base repo
+Three layers, and this repository defines no receipt structure at all:
+1. **Base format** ([allowly-receipt-format](https://github.com/Allowly-AI/allowly-receipt-format)) — what a receipt *is*: envelope, canonicalization, signature, verification. It leaves `action`, `reason`, `resource`, and `context` customer-defined.
+2. **This profile** — a *dialect*: it assigns domain meaning to those customer-defined fields for employment screening. Profile receipts remain ordinary base-format receipts and verify with stock base verifiers.
+3. **Implementations** (e.g., an ATS connector or a screening system) — Allowly customers that speak the dialect when requesting receipts. The issuer signs; the profile tells implementers what to say; the base format defines how it's sealed.
+
+Why public: a third party holding one receipt — an auditor, a regulator, opposing counsel — verifies the signature with layer 1 and interprets the fields with layer 2, **without the implementer's cooperation**. A private vocabulary would defeat the purpose of a signed record.
+
+Kept deliberately separate from the base repo: the base format is Stable and changes rarely; this profile iterates at draft speed. Nothing here requires or requests base-format changes.
+
+## Roadmap to v1.0
+1. `vectors/` — profile test vectors (valid + invalid receipts per §§4–8), generated against the base test-vector conventions.
+2. `validators/` — a thin profile-check layered on the base Python verifier: run base verification first, then §9 profile checks. Single file, CLI: exit 0/1.
+3. A reference implementation in production + one external implementer → Stable.
+
+## Validator
+Requires Python 3.10+ for the stock base verifier.
+
+Run the profile validator against the bundled vectors:
+
+```sh
+python3 -m pip install -r requirements.txt
+python3 validators/check_profile.py vectors/vectors.json --vectors
+```
+
+Run it against one receipt JSON:
+
+```sh
+python3 validators/check_profile.py receipt.json \
+  --keys keys.json \
+  --workspace-id "$ALLOWLY_WORKSPACE_ID" \
+  --trusted-key-fingerprint "$ALLOWLY_TRUSTED_KEY_FINGERPRINT" \
+  --scope audit-export.json
+```
+
+The workspace ID and key fingerprint must come from caller-trusted
+configuration, not from the receipt or key document being checked. Repeat the
+fingerprint flag for every trusted rotation key that may have signed a receipt.
+`--scope` is optional, but chain checks need it; validating a standalone
+receipt with `context.replaces_receipt` reports `note:incomplete_chain`.
+
+The validator performs a minimal base-format precheck first, then the profile checks for vocabulary pairings, required context by action, PII-free context, provenance gating, and `replaces_receipt` chains. Chain conditions are reported one at a time and distinctly: a branch, a cycle, or a target naming a different candidate or authorization fails the receipt, while an ancestor missing from a partial export is reported as `incomplete_chain` and leaves an otherwise conformant receipt valid.
+
+## Reporting issues
+Spec ambiguities and vector disagreements: GitHub issues, following the base repo's conventions. Security: security@allowly.ai.

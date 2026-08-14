@@ -1,0 +1,1267 @@
+{
+ "profile_version": "0.6.0",
+ "valid": [
+  {
+   "name": "candidate_screen_advance",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_valid_advance",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:00:00.000Z",
+    "decision": "allow",
+    "reason": "authorization_granted_action_active",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_advance",
+    "context": {
+     "subject": {
+      "uuid": "cand_advance",
+      "payload_digest": "sha256:payload_advance"
+     },
+     "requisition_id": "req_test",
+     "criteria_passed": [
+      "cr_experience"
+     ],
+     "criteria_failed": [],
+     "fields_supplied_by": {
+      "customer": [
+       "warehouse_years"
+      ],
+      "cv": []
+     },
+     "tier": "advance"
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "policy_eval": {
+     "matched_condition": null,
+     "field_value": null
+    },
+    "signature": "89X56GjIGXH7cgQ-sDAf3Zc9tg7IOSVEq6vWfdb2Rr_wgTDur9gzg7z_JUqZZ0p1i5r5A7H3OQALMCKFukdmDA",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "candidate_screen_knockout",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_valid_knockout",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:01:00.000Z",
+    "decision": "deny",
+    "reason": "deny_condition_matched",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_knockout",
+    "context": {
+     "subject": {
+      "uuid": "cand_knockout",
+      "payload_digest": "sha256:payload_knockout"
+     },
+     "requisition_id": "req_test",
+     "knockout_id": "ko_work_auth",
+     "citation": "Role requires authorization to work in the United States.",
+     "fields_supplied_by": {
+      "customer": [
+       "work_authorization"
+      ],
+      "cv": []
+     },
+     "tier": "deny",
+     "knockout": {
+      "field": "work_authorization",
+      "op": "eq",
+      "value": true,
+      "field_value": false
+     }
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "policy_eval": {
+     "matched_condition": {
+      "field": "tier",
+      "op": "eq",
+      "value": "deny"
+     },
+     "field_value": "deny"
+    },
+    "signature": "Kb66ZAghl7w64Dk6jH6uxCsBs8uGQOQUnqohNELrgxXzPJa7Nrv6dZoHwdEJbHmuI7qsQx4NrYZGi57EvZpyDw",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "candidate_screen_confirm",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_valid_confirm",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:02:00.000Z",
+    "decision": "confirm",
+    "reason": "confirm_condition_matched",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_confirm",
+    "context": {
+     "subject": {
+      "uuid": "cand_confirm",
+      "payload_digest": "sha256:payload_confirm"
+     },
+     "requisition_id": "req_test",
+     "criteria_passed": [
+      "cr_seniority"
+     ],
+     "criteria_failed": [
+      "cr_experience"
+     ],
+     "fields_supplied_by": {
+      "customer": [
+       "seniority_band"
+      ],
+      "cv": []
+     },
+     "tier": "confirm"
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "signature": "GvOATEa9E2237XJCSMzl0AnUfwatGW96Ztg0T34bjQLZ3fFGI4bGpREX_MBQTPasGRMs28YxXlDh1fmUea4lBg",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "candidate_screen_escalate_criteria",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_valid_escalate_criteria",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:03:00.000Z",
+    "decision": "escalate",
+    "reason": "escalate_condition_matched",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_escalate_criteria",
+    "context": {
+     "subject": {
+      "uuid": "cand_escalate_criteria",
+      "payload_digest": "sha256:payload_escalate_criteria"
+     },
+     "requisition_id": "req_test",
+     "criteria_passed": [],
+     "criteria_failed": [
+      "cr_experience"
+     ],
+     "tier": "escalate",
+     "detail_code": "criteria_below_confirm"
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "signature": "jksqPgQ6H4jNpWrDmgx4kO5RcH4AeuBl7sGmnvYC__EcxjFETTR1z9utfpTazhWGpjpHtyzbLRQ6TBL0GCzfAg",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "candidate_screen_escalate_parse_warning",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_valid_escalate_parse",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:04:00.000Z",
+    "decision": "escalate",
+    "reason": "escalate_condition_matched",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_escalate_parse",
+    "context": {
+     "subject": {
+      "uuid": "cand_escalate_parse",
+      "payload_digest": "sha256:payload_escalate_parse"
+     },
+     "requisition_id": "req_test",
+     "criteria_passed": [],
+     "criteria_failed": [],
+     "tier": "escalate",
+     "detail_code": "parse_warning:missing_dates"
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "signature": "rmyIek2DocGO480k262CfqL2X2ltbPOT3b1mFxWN6ODwmpowxV71nwMF4R89rx2zHwGfJtcTovNLq1Ms_5oJCQ",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "candidate_screen_escalate_accommodation",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_valid_escalate_accommodation",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:05:00.000Z",
+    "decision": "escalate",
+    "reason": "escalate_condition_matched",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_escalate_accommodation",
+    "context": {
+     "subject": {
+      "uuid": "cand_escalate_accommodation",
+      "payload_digest": "sha256:payload_escalate_accommodation"
+     },
+     "requisition_id": "req_test",
+     "criteria_passed": [],
+     "criteria_failed": [
+      "cr_license"
+     ],
+     "tier": "escalate",
+     "detail_code": "accommodation_requested"
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "signature": "kW-O9w80cVV7rhYb79STrV8JJifF94H3GA-tXz3D2dlZ_2joMc8RkKpxtSdpUgk9yl3e6Kt0-GpdKrirRivmAw",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "candidate_screen_escalate_context_missing",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_valid_escalate_missing",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:06:00.000Z",
+    "decision": "escalate",
+    "reason": "context_field_missing",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_escalate_missing",
+    "context": {
+     "subject": {
+      "uuid": "cand_escalate_missing",
+      "payload_digest": "sha256:payload_escalate_missing"
+     },
+     "requisition_id": "req_test",
+     "criteria_passed": [],
+     "criteria_failed": [
+      "cr_missing_field"
+     ],
+     "tier": "escalate",
+     "detail_code": "context_field_missing"
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "signature": "zcwJhayQFUOWGRp1PZkZbIISPkRym2NZAhxjipsgxrpIVVu7F8wDvSzRiNlS2_qsuQJj3q43S5XpXp4XNm4xCA",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "candidate_review_replaces_confirm",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_valid_review",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:07:00.000Z",
+    "decision": "allow",
+    "reason": "authorization_granted_action_active",
+    "user_id": "reviewer_opaque",
+    "agent_id": "ops_reviewer",
+    "action": "candidate.review",
+    "resource": "candidate:cand_confirm",
+    "context": {
+     "subject": {
+      "uuid": "cand_confirm",
+      "payload_digest": "sha256:payload_confirm"
+     },
+     "requisition_id": "req_test",
+     "replaces_receipt": "rcp_valid_confirm",
+     "review_basis": [
+      "cr_experience"
+     ],
+     "review_decision": "advance"
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "signature": "DZcNSfaSDUGUqeMjpwG174RoXGZndYeXWNqOfXNw9c3QnPTFUTw97CqdwK8I5BhsDyIV9jhtBuzVuTy_HGdCDA",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "adverse_action_issue",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_valid_letter",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:08:00.000Z",
+    "decision": "allow",
+    "reason": "authorization_granted_action_active",
+    "user_id": "ops_user",
+    "agent_id": "ops_reviewer",
+    "action": "adverse_action.issue",
+    "resource": "candidate:cand_knockout",
+    "context": {
+     "subject": {
+      "uuid": "cand_knockout",
+      "payload_digest": "sha256:payload_knockout"
+     },
+     "decision_refs": [
+      "rcp_valid_knockout"
+     ]
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "signature": "hLEHntW_TOlEyB5MolV4wILFbl6U2X1eN1-x7NkUw7ulg6TzLv5GDKmfjIR4gkHj9YHvspjzuFdmGR8XkdYhBw",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "audit_export",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_valid_audit",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:09:00.000Z",
+    "decision": "allow",
+    "reason": "authorization_granted_action_active",
+    "user_id": "ops_user",
+    "agent_id": "audit_worker",
+    "action": "audit.export",
+    "resource": "requisition:req_test",
+    "context": {
+     "manifest_digest": "sha256:manifest",
+     "filter": {
+      "requisition_id": "req_test"
+     }
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "signature": "UxmaoqTQruAgukWWQ4xxB770vxpOB0QyLD_jcjD54mOW1-I_N9F-cqOQda7HuVDRZtQkVjGzLBmS2Sj78A76Cg",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "authorization_create",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_valid_auth_create",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:10:00.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "policy_admin",
+    "agent_id": "policy_service",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol_hourly_ops",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     }
+    },
+    "signature": "Xo-SqXCFkS0a4uCytZrUm5e7TdByToDTD_t1y8hRq-5_LLuSpszO8vyAgJkVJHWSJ90uvW2EVhHFpt3YNgDoAg",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "authorization_revoke",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_valid_auth_revoke",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:11:00.000Z",
+    "decision": "authorization_revoked",
+    "reason": "superseded",
+    "user_id": "policy_admin",
+    "agent_id": "policy_service",
+    "resource": null,
+    "context": {
+     "revoked_by": "superseded",
+     "superseded_by": "auth_policy_v1"
+    },
+    "signature": "5AYa35goQb5ZvLmL4d-Gd6vVrSKF8qOgJLKkIMGyE0wImQCBUd9k73g6xq6br4U-r9yVoORL8032-ppoJz9IAw",
+    "authorization_id": "auth_policy_v0",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.revoke",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "review_override_partial_export",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_valid_partial_export",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:17:00.000Z",
+    "decision": "deny",
+    "reason": "deny_condition_matched",
+    "user_id": "reviewer_opaque",
+    "agent_id": "ops_reviewer",
+    "action": "candidate.review",
+    "resource": "candidate:cand_partial_export",
+    "context": {
+     "subject": {
+      "uuid": "cand_partial_export",
+      "payload_digest": "sha256:payload_partial_export"
+     },
+     "requisition_id": "req_test",
+     "replaces_receipt": "rcp_absent_from_export",
+     "review_basis": [
+      "cr_experience"
+     ],
+     "review_decision": "reject"
+    },
+    "authorization_id": "auth_policy_v1",
+    "signature": "LGAskeOBRXzPhdBx6Hby0wOhgi1OdeU151mZ_-Kh6wc1-YIC9OQ0tlWS1PY7nX0hopHeFKpHtcUdGydsMYfTCg",
+    "engine_version": "acme-ats-test",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   },
+   "notes": [
+    "incomplete_chain"
+   ]
+  },
+  {
+   "name": "candidate_screen_correction",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_valid_correction",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:08:00.000Z",
+    "decision": "allow",
+    "reason": "authorization_granted_action_active",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_escalate_missing",
+    "context": {
+     "subject": {
+      "uuid": "cand_escalate_missing",
+      "payload_digest": "sha256:payload_escalate_missing_corrected"
+     },
+     "requisition_id": "req_test",
+     "criteria_passed": [
+      "cr_missing_field"
+     ],
+     "criteria_failed": [],
+     "fields_supplied_by": {
+      "customer": [
+       "warehouse_years"
+      ],
+      "cv": []
+     },
+     "replaces_receipt": "rcp_valid_escalate_missing",
+     "tier": "advance"
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "policy_eval": {
+     "matched_condition": null,
+     "field_value": null
+    },
+    "signature": "TwpBkhbSCk-rvcnK6T1EYYMrRdDHwXiHHpHJHQywFxhCo2410FykZUwwhrCNRHxocev9swXqTKQmcZa_1Hz_DQ",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  }
+ ],
+ "invalid": [
+  {
+   "name": "vocabulary_mispairing",
+   "reason": "vocabulary_mispairing",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_vocab",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:12:00.000Z",
+    "decision": "allow",
+    "reason": "escalate_condition_matched",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_invalid_vocab",
+    "context": {
+     "subject": {
+      "uuid": "cand_invalid_vocab",
+      "payload_digest": "sha256:payload_invalid_vocab"
+     },
+     "requisition_id": "req_test",
+     "criteria_passed": [],
+     "criteria_failed": [],
+     "tier": "escalate",
+     "detail_code": "letter_issued"
+    },
+    "authorization_id": "auth_policy_v1",
+    "signature": "YsKA7t-IozzYOTe2HG5cAbRVWXRZpyTIC_btJ-nKR7wqoMhQ3lFzS_J5caAe2jUui1nbCEVazxVHWuBSuR_hAw",
+    "engine_version": "profile-vector-0.3",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "missing_policy_eval_on_knockout",
+   "reason": "missing_policy_eval",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_missing_policy_eval",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:13:00.000Z",
+    "decision": "deny",
+    "reason": "deny_condition_matched",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_invalid_policy_eval",
+    "context": {
+     "subject": {
+      "uuid": "cand_invalid_policy_eval",
+      "payload_digest": "sha256:payload_invalid_policy_eval"
+     },
+     "requisition_id": "req_test",
+     "knockout_id": "ko_work_auth",
+     "citation": "Role requires authorization to work in the United States.",
+     "fields_supplied_by": {
+      "customer": [
+       "work_authorization"
+      ],
+      "cv": []
+     },
+     "tier": "deny"
+    },
+    "authorization_id": "auth_policy_v1",
+    "signature": "6c8zUw_bneaqf8hjm1XURpS64137TqDi8AX0sK5PcB_bPTXmcGZDSavZgtgw1GoYnE0Aj-WgXrvTdGByTjJ8Bw",
+    "engine_version": "profile-vector-0.3",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "missing_replaces_receipt_on_review",
+   "reason": "missing_replaces_receipt",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_missing_replaces",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:14:00.000Z",
+    "decision": "allow",
+    "reason": "authorization_granted_action_active",
+    "user_id": "reviewer_opaque",
+    "agent_id": "ops_reviewer",
+    "action": "candidate.review",
+    "resource": "candidate:cand_confirm",
+    "context": {
+     "subject": {
+      "uuid": "cand_confirm",
+      "payload_digest": "sha256:payload_confirm"
+     },
+     "requisition_id": "req_test",
+     "review_basis": [
+      "cr_experience"
+     ],
+     "review_decision": "advance"
+    },
+    "authorization_id": "auth_policy_v1",
+    "signature": "hSfqujF2q2BRH2DY2JrQaVfFkzaMP_DQFB3Hbf7IQS9fr9vkd2KroekyU2q6Va8Kx19-GuPR4CqEVyKyrm-qAw",
+    "engine_version": "profile-vector-0.3",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "float_in_context",
+   "reason": "float_in_context",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_float",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:15:00.000Z",
+    "decision": "allow",
+    "reason": "authorization_granted_action_active",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_invalid_float",
+    "context": {
+     "subject": {
+      "uuid": "cand_invalid_float",
+      "payload_digest": "sha256:payload_invalid_float"
+     },
+     "requisition_id": "req_test",
+     "criteria_passed": [
+      "cr_score"
+     ],
+     "criteria_failed": [],
+     "score": 0.9,
+     "tier": "advance"
+    },
+    "authorization_id": "auth_policy_v1",
+    "signature": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "engine_version": "profile-vector-0.3",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "pii_in_context",
+   "reason": "pii_in_context",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_pii",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:16:00.000Z",
+    "decision": "allow",
+    "reason": "authorization_granted_action_active",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_invalid_pii",
+    "context": {
+     "subject": {
+      "uuid": "cand_invalid_pii",
+      "payload_digest": "sha256:payload_invalid_pii"
+     },
+     "requisition_id": "req_test",
+     "criteria_passed": [
+      "cr_experience"
+     ],
+     "criteria_failed": [],
+     "email": "candidate@example.test",
+     "tier": "advance"
+    },
+    "authorization_id": "auth_policy_v1",
+    "signature": "od_pfdCaiJwerurrvdwMuJ5Sq01xyUYvgDpeayHyrDUj7hu-WUe3OaHM4MgdMuQ3sK5XDn2yCAQUB9qyZhhCAQ",
+    "engine_version": "profile-vector-0.3",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "provenance_gate_violation",
+   "reason": "provenance_gate_violation",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_provenance",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:18:00.000Z",
+    "decision": "deny",
+    "reason": "deny_condition_matched",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_invalid_provenance",
+    "context": {
+     "subject": {
+      "uuid": "cand_invalid_provenance",
+      "payload_digest": "sha256:payload_invalid_provenance"
+     },
+     "requisition_id": "req_test",
+     "knockout_id": "ko_work_auth",
+     "citation": "Role requires authorization to work in the United States.",
+     "fields_supplied_by": {
+      "customer": [],
+      "cv": [
+       "work_authorization"
+      ]
+     },
+     "tier": "deny",
+     "knockout": {
+      "field": "work_authorization",
+      "op": "eq",
+      "value": true,
+      "field_value": false
+     }
+    },
+    "authorization_id": "auth_policy_v1",
+    "policy_eval": {
+     "matched_condition": {
+      "field": "tier",
+      "op": "eq",
+      "value": "deny"
+     },
+     "field_value": "deny"
+    },
+    "signature": "sGQPjR9rrDWfLSqpqkYIhWY7k1eQhxcfayu4YQkEVzbqhNi4-yKF6e45mCCXgg3_8HTRdWTJU8KAkmDi3n4UBA",
+    "engine_version": "profile-vector-0.3",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "missing_fields_supplied_by_on_knockout",
+   "reason": "missing_fields_supplied_by",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_no_provenance_map",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:19:00.000Z",
+    "decision": "deny",
+    "reason": "deny_condition_matched",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_no_provenance_map",
+    "context": {
+     "subject": {
+      "uuid": "cand_no_provenance_map",
+      "payload_digest": "sha256:payload_no_provenance_map"
+     },
+     "requisition_id": "req_test",
+     "knockout_id": "ko_work_auth",
+     "citation": "Role requires authorization to work in the United States.",
+     "tier": "deny",
+     "knockout": {
+      "field": "work_authorization",
+      "op": "eq",
+      "value": true,
+      "field_value": false
+     }
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "policy_eval": {
+     "matched_condition": {
+      "field": "tier",
+      "op": "eq",
+      "value": "deny"
+     },
+     "field_value": "deny"
+    },
+    "signature": "aLtg7ANHyUlRb_ovxJmAMp-8QiJlin9UVNubj4e_mCGgdgqvl2nmIR3jXQTDWHRLLnhbAjUeK8ru454xO_KgDA",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "fields_supplied_by_customer_not_a_list",
+   "reason": "invalid_fields_supplied_by",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_provenance_shape",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:31:00.000Z",
+    "decision": "deny",
+    "reason": "deny_condition_matched",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_provenance_shape",
+    "context": {
+     "subject": {
+      "uuid": "cand_provenance_shape",
+      "payload_digest": "sha256:payload_provenance_shape"
+     },
+     "requisition_id": "req_test",
+     "knockout_id": "ko_work_auth",
+     "citation": "Role requires authorization to work in the United States.",
+     "fields_supplied_by": {
+      "customer": "work_authorization_asserted_by_vendor",
+      "cv": [
+       "work_authorization"
+      ]
+     },
+     "tier": "deny",
+     "knockout": {
+      "field": "work_authorization",
+      "op": "eq",
+      "value": true,
+      "field_value": false
+     }
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "policy_eval": {
+     "matched_condition": {
+      "field": "tier",
+      "op": "eq",
+      "value": "deny"
+     },
+     "field_value": "deny"
+    },
+    "alg": "Ed25519",
+    "key_id": "test-key-v03",
+    "signature": "J97yPHVF6lhwXFX7x-dsfWMKIVkpwme22RHDbAEeOII4yIYOnLiSGMZe7MCqDywIkvDpLahv0MZ60JVkhefuBA"
+   }
+  },
+  {
+   "name": "tier_repeats_decision_verb",
+   "reason": "tier_decision_mismatch",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_tier_verb",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:20:00.000Z",
+    "decision": "allow",
+    "reason": "authorization_granted_action_active",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_tier_verb",
+    "context": {
+     "subject": {
+      "uuid": "cand_tier_verb",
+      "payload_digest": "sha256:payload_tier_verb"
+     },
+     "requisition_id": "req_test",
+     "criteria_passed": [
+      "cr_experience"
+     ],
+     "criteria_failed": [],
+     "tier": "allow"
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "policy_eval": {
+     "matched_condition": null,
+     "field_value": null
+    },
+    "signature": "8WvWcm-Dj80pJLsQ6fLDmlQpP83vB_iTAis0M_bDTpqBiWo2jBHtSkA19F9FjZIhqdVxp2wxT_2gtNPkmpyyAg",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "subject_resource_mismatch",
+   "reason": "subject_resource_mismatch",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_subject_resource",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:21:00.000Z",
+    "decision": "allow",
+    "reason": "authorization_granted_action_active",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_resource_side",
+    "context": {
+     "subject": {
+      "uuid": "cand_subject_side",
+      "payload_digest": "sha256:payload_subject_side"
+     },
+     "requisition_id": "req_test",
+     "criteria_passed": [
+      "cr_experience"
+     ],
+     "criteria_failed": [],
+     "tier": "advance"
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "policy_eval": {
+     "matched_condition": null,
+     "field_value": null
+    },
+    "signature": "4dpn4g9j_Lxadq0qihPrj0W69JuZ6id3z4e58Fl6uXBQTassDNlF43fDyF0FSOxqVsRykCPD_cN1-mAOJDq_Aw",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "subject_missing_payload_digest",
+   "reason": "invalid_subject_shape",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_subject_shape",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:32:00.000Z",
+    "decision": "allow",
+    "reason": "authorization_granted_action_active",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_subject_shape",
+    "context": {
+     "subject": {
+      "uuid": "cand_subject_shape"
+     },
+     "requisition_id": "req_test",
+     "criteria_passed": [
+      "cr_experience"
+     ],
+     "criteria_failed": [],
+     "fields_supplied_by": {
+      "customer": [
+       "warehouse_years"
+      ],
+      "cv": []
+     },
+     "tier": "advance"
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "policy_eval": {
+     "matched_condition": null,
+     "field_value": null
+    },
+    "alg": "Ed25519",
+    "key_id": "test-key-v03",
+    "signature": "BgfHGqTwDoBtM_Cr5DOWImmLHaEQ_HbT_-lKwoLqJ_iOJ03hVN6fE-9KY9AOlyhaZcdYjUPnd7kqhnuyeCS6AQ"
+   }
+  },
+  {
+   "name": "knockout_missing_field_value",
+   "reason": "invalid_knockout_shape",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_knockout_three_key",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:22:00.000Z",
+    "decision": "deny",
+    "reason": "deny_condition_matched",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_knockout_three_key",
+    "context": {
+     "subject": {
+      "uuid": "cand_knockout_three_key",
+      "payload_digest": "sha256:payload_knockout_three_key"
+     },
+     "requisition_id": "req_test",
+     "knockout_id": "ko_work_auth",
+     "citation": "Role requires authorization to work in the United States.",
+     "fields_supplied_by": {
+      "customer": [
+       "work_authorization"
+      ],
+      "cv": []
+     },
+     "tier": "deny",
+     "knockout": {
+      "field": "work_authorization",
+      "op": "eq",
+      "value": true
+     }
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "policy_eval": {
+     "matched_condition": {
+      "field": "tier",
+      "op": "eq",
+      "value": "deny"
+     },
+     "field_value": "deny"
+    },
+    "signature": "GgrF5uf2ZI8_O8pqBSpfW-vwrhF6xhDpq6hYZ6H0NbxEe9DKjen5cBlLLZeXi8w8uEP_urL0vWBmlR02zh7kCg",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "knockout_extra_key",
+   "reason": "invalid_knockout_shape",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_knockout_five_key",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:23:00.000Z",
+    "decision": "deny",
+    "reason": "deny_condition_matched",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_knockout_five_key",
+    "context": {
+     "subject": {
+      "uuid": "cand_knockout_five_key",
+      "payload_digest": "sha256:payload_knockout_five_key"
+     },
+     "requisition_id": "req_test",
+     "knockout_id": "ko_work_auth",
+     "citation": "Role requires authorization to work in the United States.",
+     "fields_supplied_by": {
+      "customer": [
+       "work_authorization"
+      ],
+      "cv": []
+     },
+     "tier": "deny",
+     "knockout": {
+      "field": "work_authorization",
+      "op": "eq",
+      "value": true,
+      "field_value": false,
+      "raw_answer": "not currently authorized"
+     }
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "policy_eval": {
+     "matched_condition": {
+      "field": "tier",
+      "op": "eq",
+      "value": "deny"
+     },
+     "field_value": "deny"
+    },
+    "signature": "m_OR3F2GX1p19eAV0xMQjFqBygUfChjNfuf2tQ0DI3v-0ErAhnCI_462ooQrbq2V-lv8z3AEZ1DoJOkNPUhuDg",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "candidate_value_outside_knockout",
+   "reason": "candidate_value_outside_knockout",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_second_field_value",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:24:00.000Z",
+    "decision": "confirm",
+    "reason": "confirm_condition_matched",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_second_field_value",
+    "context": {
+     "subject": {
+      "uuid": "cand_second_field_value",
+      "payload_digest": "sha256:payload_second_field_value"
+     },
+     "requisition_id": "req_test",
+     "criteria_passed": [
+      "cr_seniority"
+     ],
+     "criteria_failed": [
+      "cr_experience"
+     ],
+     "criteria_eval": {
+      "field": "warehouse_years",
+      "op": "gte",
+      "value": 3,
+      "field_value": 2
+     },
+     "tier": "confirm"
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "signature": "uDNkHgcvz_g74nonMaAJKHEchY0wMvIHburuNcg4kD8dwaWTswP31GqmlSGCkGlcDm3AnxTRzOsVYSfZ_BKvCQ",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "candidate_value_in_knockout_on_advance",
+   "reason": "candidate_value_outside_knockout",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_knockout_on_advance",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:29:00.000Z",
+    "decision": "allow",
+    "reason": "authorization_granted_action_active",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_knockout_on_advance",
+    "context": {
+     "subject": {
+      "uuid": "cand_knockout_on_advance",
+      "payload_digest": "sha256:payload_knockout_on_advance"
+     },
+     "requisition_id": "req_test",
+     "criteria_passed": [
+      "cr_experience"
+     ],
+     "criteria_failed": [],
+     "knockout": {
+      "field": "salary_expectation",
+      "op": "lte",
+      "value": 60000,
+      "field_value": 185000
+     },
+     "tier": "advance"
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "policy_eval": {
+     "matched_condition": null,
+     "field_value": null
+    },
+    "alg": "Ed25519",
+    "key_id": "test-key-v03",
+    "signature": "u8yFAuTUi8KDFVMjVpZNMQnTP5gz7RnQaAjXvWjyvhOlu4xAlGUbv2PMdiImaTcdajP2qEuBIAP0xTcnNLMBBA"
+   }
+  },
+  {
+   "name": "candidate_value_in_knockout_on_review",
+   "reason": "candidate_value_outside_knockout",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_knockout_on_review",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:30:00.000Z",
+    "decision": "deny",
+    "reason": "deny_condition_matched",
+    "user_id": "reviewer_opaque",
+    "agent_id": "ops_reviewer",
+    "action": "candidate.review",
+    "resource": "candidate:cand_knockout_on_review",
+    "context": {
+     "subject": {
+      "uuid": "cand_knockout_on_review",
+      "payload_digest": "sha256:payload_knockout_on_review"
+     },
+     "requisition_id": "req_test",
+     "replaces_receipt": "rcp_valid_knockout_on_review_target",
+     "review_basis": [
+      "cr_experience"
+     ],
+     "review_decision": "reject",
+     "knockout": {
+      "field": "work_authorization",
+      "op": "eq",
+      "value": true,
+      "field_value": false
+     }
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03",
+    "signature": "_SzqYBNkRkWsDl61gSVJ3YSD2NDEZk_D0WC1e_BMT24oFK6vfrJh1pBw08vVNbsSJolUQb6RqqHYujvhcSEgAA"
+   }
+  },
+  {
+   "name": "chain_branch",
+   "reason": "chain_branch",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_chain_branch",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:25:00.000Z",
+    "decision": "confirm",
+    "reason": "confirm_condition_matched",
+    "user_id": "req_owner",
+    "agent_id": "screening_engine",
+    "action": "candidate.screen",
+    "resource": "candidate:cand_escalate_missing",
+    "context": {
+     "subject": {
+      "uuid": "cand_escalate_missing",
+      "payload_digest": "sha256:payload_escalate_missing_second"
+     },
+     "requisition_id": "req_test",
+     "criteria_passed": [],
+     "criteria_failed": [
+      "cr_missing_field"
+     ],
+     "replaces_receipt": "rcp_valid_escalate_missing",
+     "tier": "confirm"
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "signature": "q8HhLdNfis1s5p0h2KDdgLbuee6onaT9WjpTnJqpecjV4y7bz8DjTusrKoyiE3QiEpcyYMR5FrcL5i-m8FRYCQ",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "chain_cycle",
+   "reason": "chain_cycle",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_chain_cycle",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:26:00.000Z",
+    "decision": "allow",
+    "reason": "authorization_granted_action_active",
+    "user_id": "reviewer_opaque",
+    "agent_id": "ops_reviewer",
+    "action": "candidate.review",
+    "resource": "candidate:cand_chain_cycle",
+    "context": {
+     "requisition_id": "req_test",
+     "replaces_receipt": "rcp_invalid_chain_cycle",
+     "review_decision": "advance"
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "signature": "wMzqyiDkpOU_FkuVT9ZUXcrbihA0D1IjTlKd8dWHdeSFdqI7O8Esjb_hR4OWpje-a0Fxk-ATLAMBstHNU3UTAQ",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "chain_resource_mismatch",
+   "reason": "chain_resource_mismatch",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_chain_resource",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:27:00.000Z",
+    "decision": "deny",
+    "reason": "deny_condition_matched",
+    "user_id": "reviewer_opaque",
+    "agent_id": "ops_reviewer",
+    "action": "candidate.review",
+    "resource": "candidate:cand_other_candidate",
+    "context": {
+     "requisition_id": "req_test",
+     "replaces_receipt": "rcp_valid_advance",
+     "review_decision": "reject"
+    },
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "acme-ats-test",
+    "signature": "hQ2PnZ0CBKa9DWscZxyF6Aho5hh4PW2fPy0BAxO_QJ5gI-NtSR6i6CSLde2u_ML24UWc8j3hR0TmYl37C4sECQ",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "chain_authorization_mismatch",
+   "reason": "chain_authorization_mismatch",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_chain_authorization",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:28:00.000Z",
+    "decision": "allow",
+    "reason": "authorization_granted_action_active",
+    "user_id": "reviewer_opaque",
+    "agent_id": "ops_reviewer",
+    "action": "candidate.review",
+    "resource": "candidate:cand_escalate_criteria",
+    "context": {
+     "requisition_id": "req_test",
+     "replaces_receipt": "rcp_valid_escalate_criteria",
+     "review_decision": "advance"
+    },
+    "authorization_id": "auth_policy_v2",
+    "engine_version": "acme-ats-test",
+    "signature": "Gv8FXpjL11PpvrsC26jmwZbav5s7vdwygawhY3gKcvCFNOoLQJidEVfVyaeweoRV9JESH81pc5r4I4SgAK16Cw",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  }
+ ],
+ "keys": {
+  "workspace_id": "ws_test",
+  "keys": [
+   {
+    "key_id": "test-key-v03",
+    "alg": "Ed25519",
+    "public_key": "Yp47bfR7x0v_2-griAApGZ5_tA6-3QRTHvTf7ykUfAw",
+    "public_key_fingerprint": "sha256:a7c835cd79db7a3e89945036817a9917a4d9d591ab67ed8998584d00f2c5781c",
+    "active_from": "2026-01-01T00:00:00.000Z",
+    "active_until": null
+   }
+  ]
+ }
+}
