@@ -16,3 +16,8 @@ jobs:
         run: python3 -m pip install -r requirements.txt
       - name: Validate profile vectors
         run: python3 validators/check_profile.py vectors/vectors.json --vectors
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Cross-check the JavaScript validator against the Python one
+        run: node validators/parity.test.mjs
