@@ -19,7 +19,7 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 
 SEED = hashlib.sha256(b"screening-decisions-profile/vectors/v0.3").digest()
 KEY_ID = "test-key-v03"
-PROFILE_VERSION = "0.6.0"
+PROFILE_VERSION = "0.7.0"
 WIRE_VERSION = "4"
 
 

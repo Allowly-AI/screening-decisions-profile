@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.7.0 (2026-08-29) — Approval and opaque organization provenance
+
+- Added the optional `policy_approval.v1` authorization-context binding, including exact policy and approval digests, opaque approving user and credential IDs, and honest identity assurance.
+- Added the preferred `organization {id, workspace_id}` attribution block. FunnelOps approval-bound receipts require it with `operator: "FunnelOps"`; the name-bearing `on_behalf_of` block remains supported for older producers.
+- Python and JavaScript validators now enforce approval completeness, source-tagged opaque identities, rejection of the known `fops_` credential prefix, receipt-safe policy IDs, exact numeric `x.y.z` policy versions, organization shape, approval/organization agreement, and the exact FunnelOps operator on approval-bound receipts. Negative vectors cover each new rejection branch.
+
 ## Unreleased
 - Validators: added `validators/check_profile.mjs`, a second implementation of the same two layers as a dependency-free ES module that runs unmodified in a modern browser and in Node 20+ (WebCrypto Ed25519). It carries its own base-format precheck for wire `"4"` — base §4 canonicalization (UTF-16 code-unit key sort, I-JSON integers only, `signature` excluded from the signed payload), signature verification against a caller-supplied key document, and the same caller-trusted workspace and key-fingerprint rules — then the full profile layer. `verifyReceipt(receipt, {keys, scope})` returns `{base, profile}`, each layer reporting the first failing check, with error codes identical to the Python validator's.
 - Validators: added `validators/parity.test.mjs`, which runs every bundled vector through both implementations and through the classification each vector declares, failing on any difference in outcome, error code, or non-failing notes. CI runs it after the Python vector run, in the same job.

@@ -24,6 +24,16 @@ from allowly_receipt_format import (
 
 TRUSTED_KEY_FINGERPRINT_RE = re.compile(r"sha256:[0-9a-f]{64}")
 DIGEST_PREFIX = "sha256:"
+OPAQUE_SOURCE_ID_RE = re.compile(
+    r"^[a-z][a-z0-9_]{1,31}:[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+)
+OPAQUE_WORKSPACE_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$")
+POLICY_ID_RE = re.compile(
+    r"^[A-Za-z0-9][A-Za-z0-9._:-]*(?:/[A-Za-z0-9][A-Za-z0-9._:-]*)*$"
+)
+POLICY_VERSION_RE = re.compile(
+    r"^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$"
+)
 
 CANDIDATE_PREFIX = "candidate:"
 
@@ -91,6 +101,7 @@ STANDARD_CONTEXT_KEYS = {
             "citation",
             "replaces_receipt",
             "on_behalf_of",
+            "organization",
             "operator",
         }
     ),
@@ -102,16 +113,41 @@ STANDARD_CONTEXT_KEYS = {
             "review_basis",
             "subject",
             "on_behalf_of",
+            "organization",
             "operator",
         }
     ),
     "adverse_action.issue": frozenset(
-        {"decision_refs", "subject", "on_behalf_of", "operator"}
+        {"decision_refs", "subject", "on_behalf_of", "organization", "operator"}
     ),
-    "audit.export": frozenset({"manifest_digest", "filter", "on_behalf_of", "operator"}),
-    "authorization.create": frozenset({"policy", "replaces", "on_behalf_of", "operator"}),
+    "audit.export": frozenset(
+        {"manifest_digest", "filter", "on_behalf_of", "organization", "operator"}
+    ),
+    "authorization.create": frozenset(
+        {
+            "policy",
+            "replaces",
+            "on_behalf_of",
+            "organization",
+            "operator",
+            "approval_schema_version",
+            "approval_id",
+            "approval_digest",
+            "approving_user_id",
+            "organization_id",
+            "identity_assurance",
+            "authentication_credential_id",
+            "funnelops_workspace_id",
+        }
+    ),
     "authorization.revoke": frozenset(
-        {"revoked_by", "superseded_by", "on_behalf_of", "operator"}
+        {
+            "revoked_by",
+            "superseded_by",
+            "on_behalf_of",
+            "organization",
+            "operator",
+        }
     ),
 }
 
@@ -227,6 +263,9 @@ def _profile_check(receipt: dict[str, Any]) -> str | None:
     extension_error = _context_key_check(receipt)
     if extension_error is not None:
         return extension_error
+    organization_error = _organization_check(context)
+    if organization_error is not None:
+        return organization_error
     action = receipt.get("action") or receipt.get("event")
     decision = receipt["decision"]
     reason = receipt["reason"]
@@ -255,7 +294,16 @@ def _profile_check(receipt: dict[str, Any]) -> str | None:
     if action == "authorization.create":
         if decision != "authorization_granted":
             return "vocabulary_mispairing"
-        return _policy_context_check(context.get("policy"))
+        policy_error = _policy_context_check(context.get("policy"))
+        approval_error = _approval_context_check(context)
+        lifecycle_error = policy_error or approval_error
+        if lifecycle_error is not None:
+            return lifecycle_error
+        if "approval_id" in context and receipt.get("user_id") != context.get(
+            "approving_user_id"
+        ):
+            return "approval_user_mismatch"
+        return policy_error
     if action == "authorization.revoke":
         if decision != "authorization_revoked":
             return "vocabulary_mispairing"
@@ -381,9 +429,105 @@ def _context_key_check(receipt: dict[str, Any]) -> str | None:
 def _policy_context_check(policy: Any) -> str | None:
     if not isinstance(policy, dict) or set(policy) != {"id", "version", "digest"}:
         return "missing_policy_context"
-    if not all(isinstance(policy[key], str) and policy[key] for key in ("id", "version")):
+    policy_id = policy["id"]
+    policy_version = policy["version"]
+    if (
+        not isinstance(policy_id, str)
+        or not 1 <= len(policy_id) <= 128
+        or not POLICY_ID_RE.fullmatch(policy_id)
+        or _has_funnelops_secret_component(policy_id)
+        or not isinstance(policy_version, str)
+        or not 5 <= len(policy_version) <= 32
+        or not POLICY_VERSION_RE.fullmatch(policy_version)
+    ):
         return "missing_policy_context"
     return None if _digest(policy.get("digest")) else "missing_policy_context"
+
+
+def _organization_check(context: dict[str, Any]) -> str | None:
+    organization = context.get("organization")
+    if organization is None:
+        return None
+    if not isinstance(organization, dict) or set(organization) != {
+        "id",
+        "workspace_id",
+    }:
+        return "invalid_organization_context"
+    if not OPAQUE_SOURCE_ID_RE.fullmatch(str(organization.get("id", ""))):
+        return "invalid_organization_context"
+    workspace_id = organization.get("workspace_id")
+    if (
+        not isinstance(workspace_id, str)
+        or not OPAQUE_WORKSPACE_ID_RE.fullmatch(workspace_id)
+        or _has_funnelops_secret_component(workspace_id)
+    ):
+        return "invalid_organization_context"
+    operator = context.get("operator")
+    if not isinstance(operator, str) or not operator:
+        return "missing_operator_context"
+    return None
+
+
+def _approval_context_check(context: dict[str, Any]) -> str | None:
+    approval_keys = {
+        "approval_schema_version",
+        "approval_id",
+        "approval_digest",
+        "approving_user_id",
+        "organization_id",
+        "identity_assurance",
+        "authentication_credential_id",
+        "funnelops_workspace_id",
+    }
+    present = approval_keys.intersection(context)
+    if not present:
+        return None
+    if present != approval_keys:
+        return "missing_approval_context"
+    if context["approval_schema_version"] != "policy_approval.v1":
+        return "unsupported_approval_schema"
+    if not re.fullmatch(r"sha256:[0-9a-f]{64}", str(context["approval_digest"])):
+        return "invalid_approval_digest"
+    for key in (
+        "approval_id",
+        "approving_user_id",
+        "organization_id",
+        "authentication_credential_id",
+    ):
+        value = context[key]
+        if (
+            not isinstance(value, str)
+            or not OPAQUE_SOURCE_ID_RE.fullmatch(value)
+            or _has_funnelops_secret_component(value)
+        ):
+            return "invalid_approval_identity"
+    approval_workspace_id = context["funnelops_workspace_id"]
+    if (
+        not isinstance(approval_workspace_id, str)
+        or not OPAQUE_WORKSPACE_ID_RE.fullmatch(approval_workspace_id)
+        or _has_funnelops_secret_component(approval_workspace_id)
+    ):
+        return "invalid_approval_identity"
+    if context["identity_assurance"] not in {
+        "authenticated_user",
+        "organization_asserted",
+    }:
+        return "invalid_identity_assurance"
+    organization = context.get("organization")
+    if (
+        not isinstance(organization, dict)
+        or organization.get("id") != context["organization_id"]
+        or organization.get("workspace_id") != context["funnelops_workspace_id"]
+    ):
+        return "organization_approval_mismatch"
+    if context.get("operator") != "FunnelOps":
+        return "approval_operator_mismatch"
+    return None
+
+
+def _has_funnelops_secret_component(value: str) -> bool:
+    """Recognize FunnelOps API-key-shaped components, not arbitrary semantics."""
+    return any(component.startswith("fops_") for component in re.split(r"[:/]", value))
 
 
 def _digest(value: Any) -> bool:

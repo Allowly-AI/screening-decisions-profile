@@ -1,5 +1,5 @@
 {
- "profile_version": "0.6.0",
+ "profile_version": "0.7.0",
  "valid": [
   {
    "name": "candidate_screen_advance",
@@ -30,7 +30,12 @@
       ],
       "cv": []
      },
-     "tier": "advance"
+     "tier": "advance",
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps"
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "acme-ats-test",
@@ -38,7 +43,7 @@
      "matched_condition": null,
      "field_value": null
     },
-    "signature": "89X56GjIGXH7cgQ-sDAf3Zc9tg7IOSVEq6vWfdb2Rr_wgTDur9gzg7z_JUqZZ0p1i5r5A7H3OQALMCKFukdmDA",
+    "signature": "eh2DnmrK4BjDR-GB6Q5K8rfC_r6uMJwDbU1nMhQzdToH_nbYNR4aojSAbjYT7nnDKj9yW9gTF6q4bFcTMdU8Cw",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -76,7 +81,12 @@
       "op": "eq",
       "value": true,
       "field_value": false
-     }
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps"
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "acme-ats-test",
@@ -88,7 +98,7 @@
      },
      "field_value": "deny"
     },
-    "signature": "Kb66ZAghl7w64Dk6jH6uxCsBs8uGQOQUnqohNELrgxXzPJa7Nrv6dZoHwdEJbHmuI7qsQx4NrYZGi57EvZpyDw",
+    "signature": "UhfNgv8r43JVeWZba3Euioz2_UsxgUbgYWotRsLRGoguFy75OBqYEWVUfJSUz6_TWUaLgQypAMf-3YCt4vJJDQ",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -124,11 +134,16 @@
       ],
       "cv": []
      },
-     "tier": "confirm"
+     "tier": "confirm",
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps"
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "acme-ats-test",
-    "signature": "GvOATEa9E2237XJCSMzl0AnUfwatGW96Ztg0T34bjQLZ3fFGI4bGpREX_MBQTPasGRMs28YxXlDh1fmUea4lBg",
+    "signature": "S2926Xs4byyQMT4Wd9nBytxkLMejSCaeFVJomvteF6kYuiOdO39WZxuaxMhMBYUFkldsWYVSdQWnP6nQ6yBSCQ",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -157,11 +172,16 @@
       "cr_experience"
      ],
      "tier": "escalate",
-     "detail_code": "criteria_below_confirm"
+     "detail_code": "criteria_below_confirm",
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps"
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "acme-ats-test",
-    "signature": "jksqPgQ6H4jNpWrDmgx4kO5RcH4AeuBl7sGmnvYC__EcxjFETTR1z9utfpTazhWGpjpHtyzbLRQ6TBL0GCzfAg",
+    "signature": "Imv-OVcxr30Q9M-lUgIkfi-zzfLtDpQQixDkHMO-1EQIBNrFZfqVF69ZxqooHhtMdiXWRvQujeTrpl27RDQ3Bw",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -188,11 +208,16 @@
      "criteria_passed": [],
      "criteria_failed": [],
      "tier": "escalate",
-     "detail_code": "parse_warning:missing_dates"
+     "detail_code": "parse_warning:missing_dates",
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps"
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "acme-ats-test",
-    "signature": "rmyIek2DocGO480k262CfqL2X2ltbPOT3b1mFxWN6ODwmpowxV71nwMF4R89rx2zHwGfJtcTovNLq1Ms_5oJCQ",
+    "signature": "EQdY3LVgTZQdBKr-j8ZF5zjAEWgM7pT3a2mkI3S7P5n3jxU_xBwK7qT3uRQi0B62MfkxKuvhjo90X56YIpbOAQ",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -221,11 +246,16 @@
       "cr_license"
      ],
      "tier": "escalate",
-     "detail_code": "accommodation_requested"
+     "detail_code": "accommodation_requested",
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps"
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "acme-ats-test",
-    "signature": "kW-O9w80cVV7rhYb79STrV8JJifF94H3GA-tXz3D2dlZ_2joMc8RkKpxtSdpUgk9yl3e6Kt0-GpdKrirRivmAw",
+    "signature": "PLW-chK5ofv7EdJ6o9Ao0CtwX0uuJYdXDfSjFXjOLZCDJ9n8BIB2CrPiFF1xrMed9PaGBR10Z8CN1CUbdzsoBQ",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -254,11 +284,16 @@
       "cr_missing_field"
      ],
      "tier": "escalate",
-     "detail_code": "context_field_missing"
+     "detail_code": "context_field_missing",
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps"
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "acme-ats-test",
-    "signature": "zcwJhayQFUOWGRp1PZkZbIISPkRym2NZAhxjipsgxrpIVVu7F8wDvSzRiNlS2_qsuQJj3q43S5XpXp4XNm4xCA",
+    "signature": "mjAXFlb3XrBbqC6IA2a6GF0_uJuPVotwQBdaKkg7osfl_sHinqINHCjqxCgLS_8D0GPpQYd0ujBuaOgOdQnpAQ",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -286,11 +321,16 @@
      "review_basis": [
       "cr_experience"
      ],
-     "review_decision": "advance"
+     "review_decision": "advance",
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps"
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "acme-ats-test",
-    "signature": "DZcNSfaSDUGUqeMjpwG174RoXGZndYeXWNqOfXNw9c3QnPTFUTw97CqdwK8I5BhsDyIV9jhtBuzVuTy_HGdCDA",
+    "signature": "nBNuCnQ4LHMvY6OKzFOT91elM4tlDS2T-UEUUCEEpQFUlYspCHsjsV6mfGoU8RchNzemKZkDI38OYjzIIrInCg",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -315,11 +355,16 @@
      },
      "decision_refs": [
       "rcp_valid_knockout"
-     ]
+     ],
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps"
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "acme-ats-test",
-    "signature": "hLEHntW_TOlEyB5MolV4wILFbl6U2X1eN1-x7NkUw7ulg6TzLv5GDKmfjIR4gkHj9YHvspjzuFdmGR8XkdYhBw",
+    "signature": "rHAULQ_HnF6sjXM_1GrgohLJsKnIJBMmEJ11YEvSAqME1hC7WZMDcni1RzRNPEbx30Q3Bcl7fp8fXh6fkTl3CQ",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -341,11 +386,16 @@
      "manifest_digest": "sha256:manifest",
      "filter": {
       "requisition_id": "req_test"
-     }
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps"
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "acme-ats-test",
-    "signature": "UxmaoqTQruAgukWWQ4xxB770vxpOB0QyLD_jcjD54mOW1-I_N9F-cqOQda7HuVDRZtQkVjGzLBmS2Sj78A76Cg",
+    "signature": "mZzivfCuH1qOof3k5F-rRRbTtN2NfKsiwS1gL8d4jt-8kIUnSMCrzL9w4ujHbU09bBWe5Cyx33ICl_oUNkbjAQ",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
@@ -359,17 +409,30 @@
     "issued_at": "2026-07-13T00:10:00.000Z",
     "decision": "authorization_granted",
     "reason": "authorization_created",
-    "user_id": "policy_admin",
-    "agent_id": "policy_service",
+    "user_id": "funnelops_user:user_test",
+    "agent_id": "funnelops_screening",
     "resource": null,
     "context": {
      "policy": {
       "id": "pol_hourly_ops",
       "version": "1.0.0",
       "digest": "sha256:policy_v1"
-     }
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "funnelops_approval:approval_test",
+     "approval_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+     "approving_user_id": "funnelops_user:user_test",
+     "organization_id": "funnelops_org:org_test",
+     "identity_assurance": "organization_asserted",
+     "authentication_credential_id": "funnelops_workspace_key:key_test",
+     "funnelops_workspace_id": "ws_funnelops_test"
     },
-    "signature": "Xo-SqXCFkS0a4uCytZrUm5e7TdByToDTD_t1y8hRq-5_LLuSpszO8vyAgJkVJHWSJ90uvW2EVhHFpt3YNgDoAg",
+    "signature": "5eM8CZWdx4qEekOEFXSeNuAX0VDB80rdHKKpWYtLrR7Q7jnsknN37ulI66O8WCrB5EQk-QT199liRIjNYoX0CA",
     "authorization_id": "auth_policy_v1",
     "engine_version": "profile-vector-0.3",
     "event": "authorization.create",
@@ -391,9 +454,14 @@
     "resource": null,
     "context": {
      "revoked_by": "superseded",
-     "superseded_by": "auth_policy_v1"
+     "superseded_by": "auth_policy_v1",
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps"
     },
-    "signature": "5AYa35goQb5ZvLmL4d-Gd6vVrSKF8qOgJLKkIMGyE0wImQCBUd9k73g6xq6br4U-r9yVoORL8032-ppoJz9IAw",
+    "signature": "6mGsNUTNFLxj0-qw-R3tNlEVAkdVaD4I2lrBm3rWzlHDmmN_yi2eVgo0ekPilFGcEpITshoG13GSPeR5E7QJBA",
     "authorization_id": "auth_policy_v0",
     "engine_version": "profile-vector-0.3",
     "event": "authorization.revoke",
@@ -424,10 +492,15 @@
      "review_basis": [
       "cr_experience"
      ],
-     "review_decision": "reject"
+     "review_decision": "reject",
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps"
     },
     "authorization_id": "auth_policy_v1",
-    "signature": "LGAskeOBRXzPhdBx6Hby0wOhgi1OdeU151mZ_-Kh6wc1-YIC9OQ0tlWS1PY7nX0hopHeFKpHtcUdGydsMYfTCg",
+    "signature": "mqlTKBLSrwTYUvlnkP3bk8WE1uI5vjSYniB9MGAHMG-hqQLgtGkpLHPhVfnwsY-hS0kM9NXygi6T1PlNc-g5AA",
     "engine_version": "acme-ats-test",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
@@ -466,7 +539,12 @@
       "cv": []
      },
      "replaces_receipt": "rcp_valid_escalate_missing",
-     "tier": "advance"
+     "tier": "advance",
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps"
     },
     "authorization_id": "auth_policy_v1",
     "engine_version": "acme-ats-test",
@@ -474,13 +552,810 @@
      "matched_condition": null,
      "field_value": null
     },
-    "signature": "TwpBkhbSCk-rvcnK6T1EYYMrRdDHwXiHHpHJHQywFxhCo2410FykZUwwhrCNRHxocev9swXqTKQmcZa_1Hz_DQ",
+    "signature": "PxVfiucQIJvtUFSEPiRWF7SgeGYbUR-X-kxzIgbIq5DpgYdVdVOFU6a6XbJ0s3XPmtjkTvuW9sbmiMG-NmyKBw",
     "alg": "Ed25519",
     "key_id": "test-key-v03"
    }
   }
  ],
  "invalid": [
+  {
+   "name": "approval_context_incomplete",
+   "reason": "missing_approval_context",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_approval_incomplete",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:29:00.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "funnelops_user:user_test",
+    "agent_id": "funnelops_screening",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol_hourly_ops",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "funnelops_approval:approval_test",
+     "approval_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+     "approving_user_id": "funnelops_user:user_test",
+     "organization_id": "funnelops_org:org_test",
+     "identity_assurance": "organization_asserted",
+     "funnelops_workspace_id": "ws_funnelops_test"
+    },
+    "signature": "1rNDy0CG3DXn1I4cy_I_9l3YMdp50GQDi0QFj-q0Z2OYeD0SEK83Sf_trKKK7OpXTUPwo-wKHzy__yWWRmx7AA",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "approval_digest_invalid",
+   "reason": "invalid_approval_digest",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_approval_digest",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:30:00.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "funnelops_user:user_test",
+    "agent_id": "funnelops_screening",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol_hourly_ops",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "funnelops_approval:approval_test",
+     "approval_digest": "sha256:not-a-digest",
+     "approving_user_id": "funnelops_user:user_test",
+     "organization_id": "funnelops_org:org_test",
+     "identity_assurance": "organization_asserted",
+     "authentication_credential_id": "funnelops_workspace_key:key_test",
+     "funnelops_workspace_id": "ws_funnelops_test"
+    },
+    "signature": "SjiZhSRAFHb87QFxTlcPlNFo9d6Bfjgi5K24S2FB9Ij372vVVnSwI-He-xeJuLQOFUz_0Yypa7Fi21ty5DOOAg",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "approval_identity_not_source_tagged",
+   "reason": "invalid_approval_identity",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_approval_identity",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:31:00.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "funnelops_user:user_test",
+    "agent_id": "funnelops_screening",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol_hourly_ops",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "approval_test",
+     "approval_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+     "approving_user_id": "funnelops_user:user_test",
+     "organization_id": "funnelops_org:org_test",
+     "identity_assurance": "organization_asserted",
+     "authentication_credential_id": "funnelops_workspace_key:key_test",
+     "funnelops_workspace_id": "ws_funnelops_test"
+    },
+    "signature": "P_iUvXHqb0bMTlCgSj1JJRlSj-C9pnGaqpBEekktGe44binjLPZvBaYhVnLxNMTtxA0EQMefK3GsrMr8XTZ9AA",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "approval_id_contains_credential_secret",
+   "reason": "invalid_approval_identity",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_approval_id_secret",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:40:01.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "funnelops_user:user_test",
+    "agent_id": "funnelops_screening",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol_hourly_ops",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "funnelops_approval:fops_secret_test",
+     "approval_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+     "approving_user_id": "funnelops_user:user_test",
+     "organization_id": "funnelops_org:org_test",
+     "identity_assurance": "organization_asserted",
+     "authentication_credential_id": "funnelops_workspace_key:key_test",
+     "funnelops_workspace_id": "ws_funnelops_test"
+    },
+    "signature": "K8Nc6fifA3f58Kj873PwHl87XIibJIVvYnTKOPr8bcpi_GrdIwCFgKeKgkXLyhyaNaFUEcmQUUV0s1vWXm1OCg",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "approving_user_id_contains_credential_secret",
+   "reason": "invalid_approval_identity",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_approving_user_secret",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:40:02.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "funnelops_user:fops_secret_test",
+    "agent_id": "funnelops_screening",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol_hourly_ops",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "funnelops_approval:approval_test",
+     "approval_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+     "approving_user_id": "funnelops_user:fops_secret_test",
+     "organization_id": "funnelops_org:org_test",
+     "identity_assurance": "organization_asserted",
+     "authentication_credential_id": "funnelops_workspace_key:key_test",
+     "funnelops_workspace_id": "ws_funnelops_test"
+    },
+    "signature": "Z8PYXYep_9_1Dzf20lPIym6n05tvo1AyzIGS8jw1gv6BebFXxososxdbXpFxzdsiBoFmcd9laemGXdzzphN8CQ",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "organization_id_contains_credential_secret",
+   "reason": "invalid_approval_identity",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_organization_id_secret",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:40:03.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "funnelops_user:user_test",
+    "agent_id": "funnelops_screening",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol_hourly_ops",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "funnelops_org:fops_secret_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "funnelops_approval:approval_test",
+     "approval_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+     "approving_user_id": "funnelops_user:user_test",
+     "organization_id": "funnelops_org:fops_secret_test",
+     "identity_assurance": "organization_asserted",
+     "authentication_credential_id": "funnelops_workspace_key:key_test",
+     "funnelops_workspace_id": "ws_funnelops_test"
+    },
+    "signature": "upa2PS9UtD_dwgxaSJujPCgfuNPXrZAp2p2HPgL4r2oEhIHKgk2HALpq05g_m8vZui3qzFTLOoZ2RvnC9lwAAA",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "authentication_credential_id_contains_credential_secret",
+   "reason": "invalid_approval_identity",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_authentication_credential_secret",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:40:04.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "funnelops_user:user_test",
+    "agent_id": "funnelops_screening",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol_hourly_ops",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "funnelops_approval:approval_test",
+     "approval_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+     "approving_user_id": "funnelops_user:user_test",
+     "organization_id": "funnelops_org:org_test",
+     "identity_assurance": "organization_asserted",
+     "authentication_credential_id": "funnelops_workspace_key:fops_secret_test",
+     "funnelops_workspace_id": "ws_funnelops_test"
+    },
+    "signature": "gl73Qj3m8iiVsTU5EpV1FKLFyvLmt6lfunlakqQK9HEpZgJ9d8CcjYZg11RW3tPePTTQVGsyuq6c6--7FTjDBQ",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "approval_workspace_id_contains_credential_secret",
+   "reason": "invalid_organization_context",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_approval_workspace_secret",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:40:08.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "funnelops_user:user_test",
+    "agent_id": "funnelops_screening",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol_hourly_ops",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "tenant:fops_secret_test"
+     },
+     "operator": "FunnelOps",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "funnelops_approval:approval_test",
+     "approval_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+     "approving_user_id": "funnelops_user:user_test",
+     "organization_id": "funnelops_org:org_test",
+     "identity_assurance": "organization_asserted",
+     "authentication_credential_id": "funnelops_workspace_key:key_test",
+     "funnelops_workspace_id": "tenant:fops_secret_test"
+    },
+    "signature": "q_blLsRKMg7jhqPFV-j8SNNZVnqCnDfYSZRk8fBK4FHI1McjkShWU3I_CkHviVXc7gtha0U40hDj8KJlVFpnCQ",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "approval_workspace_id_not_receipt_safe",
+   "reason": "invalid_approval_identity",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_approval_workspace_shape",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:40:09.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "funnelops_user:user_test",
+    "agent_id": "funnelops_screening",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol_hourly_ops",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "funnelops_approval:approval_test",
+     "approval_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+     "approving_user_id": "funnelops_user:user_test",
+     "organization_id": "funnelops_org:org_test",
+     "identity_assurance": "organization_asserted",
+     "authentication_credential_id": "funnelops_workspace_key:key_test",
+     "funnelops_workspace_id": "tenant/workspace"
+    },
+    "signature": "yC8mlOQomeiB7Hxt1inu6zebz-y7QmEldkmAz-8pDM7s0NosRrkxuevYohjGA1_TgWC8LgYPDe9lJBP5UhnWCQ",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "organization_workspace_id_not_receipt_safe",
+   "reason": "invalid_organization_context",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_organization_workspace_shape",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:40:10.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "funnelops_user:user_test",
+    "agent_id": "funnelops_screening",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol_hourly_ops",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "tenant/workspace"
+     },
+     "operator": "FunnelOps",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "funnelops_approval:approval_test",
+     "approval_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+     "approving_user_id": "funnelops_user:user_test",
+     "organization_id": "funnelops_org:org_test",
+     "identity_assurance": "organization_asserted",
+     "authentication_credential_id": "funnelops_workspace_key:key_test",
+     "funnelops_workspace_id": "tenant/workspace"
+    },
+    "signature": "5r5R51NU4oAzmhOpjJo4yUWVARE1hMuaKtT21qywO3gUQ0Z70vhlWcyCtGQEoFPpe9eeiZnT6pZ5TH2qhy7xAQ",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "policy_id_not_receipt_safe",
+   "reason": "missing_policy_context",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_policy_id_shape",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:40:05.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "funnelops_user:user_test",
+    "agent_id": "funnelops_screening",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol/hourly//ops",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "funnelops_approval:approval_test",
+     "approval_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+     "approving_user_id": "funnelops_user:user_test",
+     "organization_id": "funnelops_org:org_test",
+     "identity_assurance": "organization_asserted",
+     "authentication_credential_id": "funnelops_workspace_key:key_test",
+     "funnelops_workspace_id": "ws_funnelops_test"
+    },
+    "signature": "oc16nrq1QlzKIPxCyXnkkqNwVv476i6Q6Kq0hD9FfrMhECgIgup-uE3j_m8KqCjph9Eny-efZhZZ74wcIGKbCg",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "policy_id_contains_credential_secret",
+   "reason": "missing_policy_context",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_policy_id_secret",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:40:06.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "funnelops_user:user_test",
+    "agent_id": "funnelops_screening",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "policies/fops_secret_test",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "funnelops_approval:approval_test",
+     "approval_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+     "approving_user_id": "funnelops_user:user_test",
+     "organization_id": "funnelops_org:org_test",
+     "identity_assurance": "organization_asserted",
+     "authentication_credential_id": "funnelops_workspace_key:key_test",
+     "funnelops_workspace_id": "ws_funnelops_test"
+    },
+    "signature": "50jvck_A9rn0JuhntDZHypsJeupkL9H7N-lMVxt4xHSH9gPrcf0XA9GlAP6WsSo6BWhkEK4hjLkafUFHg357Cg",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "policy_version_not_canonical_numeric_triplet",
+   "reason": "missing_policy_context",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_policy_version",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:40:07.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "funnelops_user:user_test",
+    "agent_id": "funnelops_screening",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol_hourly_ops",
+      "version": "01.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "funnelops_approval:approval_test",
+     "approval_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+     "approving_user_id": "funnelops_user:user_test",
+     "organization_id": "funnelops_org:org_test",
+     "identity_assurance": "organization_asserted",
+     "authentication_credential_id": "funnelops_workspace_key:key_test",
+     "funnelops_workspace_id": "ws_funnelops_test"
+    },
+    "signature": "q2vpESK-lekfOUjKCDgcnMA4bh95HUy0vO0MUHdYInqgv5M6JhfhAx-1XEt3BRf2XX-uN-ZvCqBZPQHCEjy1CA",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "approval_assurance_invalid",
+   "reason": "invalid_identity_assurance",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_approval_assurance",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:32:00.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "funnelops_user:user_test",
+    "agent_id": "funnelops_screening",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol_hourly_ops",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "funnelops_approval:approval_test",
+     "approval_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+     "approving_user_id": "funnelops_user:user_test",
+     "organization_id": "funnelops_org:org_test",
+     "identity_assurance": "self_asserted",
+     "authentication_credential_id": "funnelops_workspace_key:key_test",
+     "funnelops_workspace_id": "ws_funnelops_test"
+    },
+    "signature": "SnqbZw75BmC52FP_izpuAAr4ilUF_XwILQiB8rVDiFKzIHIDm7c4kfbEM_FjrYvNmbqp5e8mjuFGflAa2vUJAA",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "approval_organization_mismatch",
+   "reason": "organization_approval_mismatch",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_approval_organization",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:33:00.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "funnelops_user:user_test",
+    "agent_id": "funnelops_screening",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol_hourly_ops",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "funnelops_org:other_org",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "funnelops_approval:approval_test",
+     "approval_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+     "approving_user_id": "funnelops_user:user_test",
+     "organization_id": "funnelops_org:org_test",
+     "identity_assurance": "organization_asserted",
+     "authentication_credential_id": "funnelops_workspace_key:key_test",
+     "funnelops_workspace_id": "ws_funnelops_test"
+    },
+    "signature": "p4GzYa7EVZztmVXlSM9vd8HW78R5gOaifHX6-JloE8QWaqNFErogrBa7sOrgje8OlPp-L4mnxWd9j70d8ggtDw",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "approval_operator_mismatch",
+   "reason": "approval_operator_mismatch",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_approval_operator",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:34:00.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "funnelops_user:user_test",
+    "agent_id": "funnelops_screening",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol_hourly_ops",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "Other",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "funnelops_approval:approval_test",
+     "approval_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+     "approving_user_id": "funnelops_user:user_test",
+     "organization_id": "funnelops_org:org_test",
+     "identity_assurance": "organization_asserted",
+     "authentication_credential_id": "funnelops_workspace_key:key_test",
+     "funnelops_workspace_id": "ws_funnelops_test"
+    },
+    "signature": "rDBhL6ps8fy4D7f3MC72-uQ7mQ3s8yyoOuVEUdP4fpmXI41udvU3oSOO7J0CuTWXQjRer8AGzaYgtwtS-IPZCQ",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "approval_user_mismatch",
+   "reason": "approval_user_mismatch",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_approval_user",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:35:00.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "funnelops_user:other_user",
+    "agent_id": "funnelops_screening",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol_hourly_ops",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "funnelops_approval:approval_test",
+     "approval_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+     "approving_user_id": "funnelops_user:user_test",
+     "organization_id": "funnelops_org:org_test",
+     "identity_assurance": "organization_asserted",
+     "authentication_credential_id": "funnelops_workspace_key:key_test",
+     "funnelops_workspace_id": "ws_funnelops_test"
+    },
+    "signature": "iEqYxZF4CvMFYyaug5fk_L-6N5fvQF0ZzCiHlXKjFn8X3xiRiL4pGJbZklPh1xfCFaR_BxbXhYHTh-br6zWWAw",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "approval_missing_policy_precedes_user_mismatch",
+   "reason": "missing_policy_context",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_approval_policy_order",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:36:00.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "funnelops_user:other_user",
+    "agent_id": "funnelops_screening",
+    "resource": null,
+    "context": {
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps",
+     "approval_schema_version": "policy_approval.v1",
+     "approval_id": "funnelops_approval:approval_test",
+     "approval_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+     "approving_user_id": "funnelops_user:user_test",
+     "organization_id": "funnelops_org:org_test",
+     "identity_assurance": "organization_asserted",
+     "authentication_credential_id": "funnelops_workspace_key:key_test",
+     "funnelops_workspace_id": "ws_funnelops_test"
+    },
+    "signature": "xEc1I8FgLk9CuhakLR0fLR2yK7RLJ0z4eZwuTBt0SotVYmIrONnrh72J5DA2BX0VQgnIgQ32bQFGR1ACArGuDg",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "organization_context_invalid",
+   "reason": "invalid_organization_context",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_organization_context",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:37:00.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "policy_admin",
+    "agent_id": "policy_service",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol_hourly_ops",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "Hourly Ops",
+      "workspace_id": "ws_funnelops_test"
+     },
+     "operator": "FunnelOps"
+    },
+    "signature": "GhA8nE1CaQffHPOP5CcCfmNLCqgW2ujphWloW4zNSiVYZw5bkGI8YHwMNlY21-WF8m5LusVQ32Jw_kK-_RGFDA",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
+  {
+   "name": "organization_operator_missing",
+   "reason": "missing_operator_context",
+   "receipt": {
+    "schema_version": "4",
+    "receipt_id": "rcp_invalid_organization_operator",
+    "workspace_id": "ws_test",
+    "issued_at": "2026-07-13T00:38:00.000Z",
+    "decision": "authorization_granted",
+    "reason": "authorization_created",
+    "user_id": "policy_admin",
+    "agent_id": "policy_service",
+    "resource": null,
+    "context": {
+     "policy": {
+      "id": "pol_hourly_ops",
+      "version": "1.0.0",
+      "digest": "sha256:policy_v1"
+     },
+     "organization": {
+      "id": "funnelops_org:org_test",
+      "workspace_id": "ws_funnelops_test"
+     }
+    },
+    "signature": "CNL2U3xMQsd8qyDgaT1oRg710HMd7WKW5wZ6SxJn97Mz_BjqWok39SRGAgWcNOe-W_lp409m0PFh9TVW5nneAw",
+    "authorization_id": "auth_policy_v1",
+    "engine_version": "profile-vector-0.3",
+    "event": "authorization.create",
+    "alg": "Ed25519",
+    "key_id": "test-key-v03"
+   }
+  },
   {
    "name": "vocabulary_mispairing",
    "reason": "vocabulary_mispairing",

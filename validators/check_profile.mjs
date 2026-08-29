@@ -742,6 +742,13 @@ const TIER_BY_DECISION = {
   escalate: "escalate",
 };
 const REVIEW_DECISION_BY_DECISION = { allow: "advance", deny: "reject" };
+const OPAQUE_SOURCE_ID_RE =
+  /^[a-z][a-z0-9_]{1,31}:[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/;
+const OPAQUE_WORKSPACE_ID_RE = /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/;
+const POLICY_ID_RE =
+  /^[A-Za-z0-9][A-Za-z0-9._:-]*(?:\/[A-Za-z0-9][A-Za-z0-9._:-]*)*$/;
+const POLICY_VERSION_RE =
+  /^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$/;
 const STANDARD_CONTEXT_KEYS = new Map([
   [
     "candidate.screen",
@@ -758,6 +765,7 @@ const STANDARD_CONTEXT_KEYS = new Map([
       "citation",
       "replaces_receipt",
       "on_behalf_of",
+      "organization",
       "operator",
     ]),
   ],
@@ -770,13 +778,31 @@ const STANDARD_CONTEXT_KEYS = new Map([
       "review_basis",
       "subject",
       "on_behalf_of",
+      "organization",
       "operator",
     ]),
   ],
-  ["adverse_action.issue", new Set(["decision_refs", "subject", "on_behalf_of", "operator"])],
-  ["audit.export", new Set(["manifest_digest", "filter", "on_behalf_of", "operator"])],
-  ["authorization.create", new Set(["policy", "replaces", "on_behalf_of", "operator"])],
-  ["authorization.revoke", new Set(["revoked_by", "superseded_by", "on_behalf_of", "operator"])],
+  ["adverse_action.issue", new Set(["decision_refs", "subject", "on_behalf_of", "organization", "operator"])],
+  ["audit.export", new Set(["manifest_digest", "filter", "on_behalf_of", "organization", "operator"])],
+  [
+    "authorization.create",
+    new Set([
+      "policy",
+      "replaces",
+      "on_behalf_of",
+      "organization",
+      "operator",
+      "approval_schema_version",
+      "approval_id",
+      "approval_digest",
+      "approving_user_id",
+      "organization_id",
+      "identity_assurance",
+      "authentication_credential_id",
+      "funnelops_workspace_id",
+    ]),
+  ],
+  ["authorization.revoke", new Set(["revoked_by", "superseded_by", "on_behalf_of", "organization", "operator"])],
 ]);
 
 function receiptAction(receipt) {
@@ -900,10 +926,101 @@ function policyContextCheck(policy) {
   if (!isPlainObject(policy) || !hasExactKeys(policy, ["id", "version", "digest"])) {
     return "missing_policy_context";
   }
-  for (const key of ["id", "version"]) {
-    if (typeof policy[key] !== "string" || !policy[key]) return "missing_policy_context";
+  if (
+    typeof policy.id !== "string" ||
+    policy.id.length < 1 ||
+    policy.id.length > 128 ||
+    !POLICY_ID_RE.test(policy.id) ||
+    hasFunnelOpsSecretComponent(policy.id) ||
+    typeof policy.version !== "string" ||
+    policy.version.length < 5 ||
+    policy.version.length > 32 ||
+    !POLICY_VERSION_RE.test(policy.version)
+  ) {
+    return "missing_policy_context";
   }
   return isDigest(policy.digest) ? null : "missing_policy_context";
+}
+
+function hasFunnelOpsSecretComponent(value) {
+  // This recognizes FunnelOps API-key-shaped components, not arbitrary semantics.
+  return value.split(/[:/]/u).some((component) => component.startsWith("fops_"));
+}
+
+function organizationCheck(context) {
+  const organization = context.organization;
+  if (organization === undefined) return null;
+  if (
+    !isPlainObject(organization) ||
+    !hasExactKeys(organization, ["id", "workspace_id"]) ||
+    !OPAQUE_SOURCE_ID_RE.test(organization.id) ||
+    typeof organization.workspace_id !== "string" ||
+    !OPAQUE_WORKSPACE_ID_RE.test(organization.workspace_id) ||
+    hasFunnelOpsSecretComponent(organization.workspace_id)
+  ) {
+    return "invalid_organization_context";
+  }
+  if (typeof context.operator !== "string" || !context.operator) {
+    return "missing_operator_context";
+  }
+  return null;
+}
+
+function approvalContextCheck(context) {
+  const keys = [
+    "approval_schema_version",
+    "approval_id",
+    "approval_digest",
+    "approving_user_id",
+    "organization_id",
+    "identity_assurance",
+    "authentication_credential_id",
+    "funnelops_workspace_id",
+  ];
+  const present = keys.filter((key) => key in context);
+  if (present.length === 0) return null;
+  if (present.length !== keys.length) return "missing_approval_context";
+  if (context.approval_schema_version !== "policy_approval.v1") {
+    return "unsupported_approval_schema";
+  }
+  if (!/^sha256:[0-9a-f]{64}$/.test(context.approval_digest)) {
+    return "invalid_approval_digest";
+  }
+  for (const key of [
+    "approval_id",
+    "approving_user_id",
+    "organization_id",
+    "authentication_credential_id",
+  ]) {
+    if (
+      typeof context[key] !== "string" ||
+      !OPAQUE_SOURCE_ID_RE.test(context[key]) ||
+      hasFunnelOpsSecretComponent(context[key])
+    ) {
+      return "invalid_approval_identity";
+    }
+  }
+  if (
+    typeof context.funnelops_workspace_id !== "string" ||
+    !OPAQUE_WORKSPACE_ID_RE.test(context.funnelops_workspace_id) ||
+    hasFunnelOpsSecretComponent(context.funnelops_workspace_id)
+  ) {
+    return "invalid_approval_identity";
+  }
+  if (!new Set(["authenticated_user", "organization_asserted"]).has(
+    context.identity_assurance,
+  )) {
+    return "invalid_identity_assurance";
+  }
+  if (
+    !isPlainObject(context.organization) ||
+    context.organization.id !== context.organization_id ||
+    context.organization.workspace_id !== context.funnelops_workspace_id
+  ) {
+    return "organization_approval_mismatch";
+  }
+  if (context.operator !== "FunnelOps") return "approval_operator_mismatch";
+  return null;
 }
 
 function candidateScreenCheck(receipt) {
@@ -996,6 +1113,8 @@ export function checkProfile(receipt) {
   if (valueError !== null) return valueError;
   const extensionError = contextKeyCheck(receipt);
   if (extensionError !== null) return extensionError;
+  const organizationError = organizationCheck(context);
+  if (organizationError !== null) return organizationError;
   const action = receiptAction(receipt);
   const decision = receipt.decision;
   const reason = receipt.reason;
@@ -1027,7 +1146,12 @@ export function checkProfile(receipt) {
   }
   if (action === "authorization.create") {
     if (decision !== "authorization_granted") return "vocabulary_mispairing";
-    return policyContextCheck(context.policy);
+    const lifecycleError = policyContextCheck(context.policy) || approvalContextCheck(context);
+    if (lifecycleError !== null) return lifecycleError;
+    if ("approval_id" in context && receipt.user_id !== context.approving_user_id) {
+      return "approval_user_mismatch";
+    }
+    return null;
   }
   if (action === "authorization.revoke") {
     if (decision !== "authorization_revoked") return "vocabulary_mispairing";
