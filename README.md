@@ -28,6 +28,11 @@ Kept deliberately separate from the base repo: the base format is Stable and cha
 ### Python validator
 Requires Python 3.10+ for the stock base verifier.
 
+The `feature/confirm-receipt` branch targets verifier 4.3.0. Until that
+package is published, local checks use the reviewed sibling verifier source
+via `PYTHONPATH=../allowly-receipt-format/verifiers/python/src`. Do not treat
+the registry installation command below as a released 4.3.0 installation yet.
+
 Run the profile validator against the bundled vectors:
 
 ```sh
